@@ -16,11 +16,11 @@ A highly customized CLI tool
 
 ## usage
 
-`psc`（已废弃）
+`psc`
 
 ![](./psc-example.png)
 
-#### 创建 Vue 组件 `psc create component`
+#### 创建 Vue 组件 `psc create component` （目前默认`psc`也是该作用）
 
 #### 安装或者删除依赖包 `psc i/ui <package> -g/-d/-s`
 
