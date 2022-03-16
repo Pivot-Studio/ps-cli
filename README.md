@@ -1,5 +1,7 @@
 # ps-cli
 
+## description
+
 A highly customized CLI tool
 
 ## start
@@ -14,10 +16,22 @@ A highly customized CLI tool
 
 ## usage
 
-`psc`
+`psc`（已废弃）
 
 ![](./psc-example.png)
 
-## description
+#### 创建 Vue 组件 `psc create component`
+
+#### 安装或者删除依赖包 `psc i/ui <package> -g/-d/-s`
+
+## histroy
+
+#### v0.0.0
 
 目前只支持通过 `psc` 来动态创建一个 Vue 组件文件
+
+#### v0.0.1
+
+- 重构了一下总体代码结构，将不同用途的代码抽离。
+- 修改了一下**创建组件**的方式，现在是通过 `psc create component` 来触发。
+- 加入了安装依赖和删除依赖的功能：`psc i/ui <package> -g/-d/-s`
