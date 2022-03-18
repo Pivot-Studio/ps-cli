@@ -20,7 +20,7 @@ A highly customized CLI tool
 
 ![](./psc-example.png)
 
-#### 创建 Vue 组件 `psc create component` （目前默认`psc`也是该作用）
+#### 创建组件或者 vue 项目架构 `psc create` （目前默认`psc`也是该作用）
 
 #### 安装或者删除依赖包 `psc i/ui <package> -g/-d/-s`
 
@@ -36,6 +36,7 @@ A highly customized CLI tool
 - 修改了一下**创建组件**的方式，现在是通过 `psc create component` 来触发。
 - 加入了安装依赖和删除依赖的功能：`psc i/ui <package> -g/-d/-s`
 
-<!-- #### 3.17
+#### v0.0.2
 
-可以创建文件夹但文件夹里面的文件创建失败 -->
+- 优化了选择创建的方式
+- 添加了创建 Vue 项目架构的功能
