@@ -61,6 +61,7 @@ function detect() {
         }
     }
     ///['package-lock.json', 'D:\\workplace\\ps-cli']
+    if (typeof dest != 'object') throw new Error('Your project must have a package lock file!!')
     return dest
 }
 /**
