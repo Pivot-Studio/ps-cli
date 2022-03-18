@@ -10,6 +10,7 @@ Install
     .option('-d , --dev', 'install in DevDependency')
     .option('-s , --save', 'install in Dependency')
     .option('-g , --global', 'install in Global')
+    .option('--frozen', 'install with lockfile')
     .description('install your dependencies')
     .action(
         require('./libs/install.js')
@@ -25,6 +26,13 @@ Uninstall
         require('./libs/uninstall.js')
     )
 
+const Upgrade = Program.command('u [package]')
+Upgrade
+    .option('-g , --global', 'undate in Global')
+    .description('update your packages in Devdependency or Global')
+    .action(
+        require('./libs/update.js')
+    )
 
 const Create = Program.command('create', { isDefault: true })
 Create

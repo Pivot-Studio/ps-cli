@@ -1,15 +1,19 @@
 const spawn = require('cross-spawn');
 const chalk = require('chalk')
 const figlet = require('figlet');
-
-
+const {
+    packageManage,
+    packageUrl,
+    Commands
+} = require('./detect.js')
 module.exports = async (package, options) => {
     //package ：name ；options：参数选项
     let child;
     // 监听执行结果
-
     if (!package) {
-        child = spawn('npm', ['install'], {
+        let key = 'install'
+        if (options.frozen) key = 'frozen'
+        child = spawn(packageManage, [Commands[key]], {
             stdio: 'inherit'
         });
     } else {
@@ -18,7 +22,7 @@ module.exports = async (package, options) => {
         if (options.dev) op = '-D'
         if (options.save) op = '-S'
         if (options.global) op = '-g'
-        child = spawn('npm', ['install', op, package], {
+        child = spawn(packageManage, [Commands.install, op, package], {
             stdio: 'inherit'
         });
     }
