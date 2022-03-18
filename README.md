@@ -22,7 +22,57 @@ A highly customized CLI tool
 
 #### 创建组件或者 vue 项目架构 `psc create` （目前默认`psc`也是该作用）
 
-#### 安装或者删除依赖包 `psc i/ui <package> -g/-d/-s`
+#### i / ui --- install / uninstall
+
+```bash
+psc i
+
+# npm install
+# yarn install
+# pnpm install
+```
+
+```bash
+psc i --frozen
+
+# npm ci
+# yarn install --frozen-lockfile
+# pnpm install --frozen-lockfile
+```
+
+```bash
+psc i axios
+
+# npm i axios
+# yarn add axios
+# pnpm add axios
+```
+
+```bash
+psc ui <package>
+
+# npm uninstall <package>
+# yarn uninstall <package>
+# pnpm uninstall <package>
+```
+
+#### u --- update
+
+```bash
+psc u <package> -s/-d
+
+# npm upgrade <package>
+# yarn upgrade <package>
+# pnpm update <package>
+```
+
+```bash
+psc u -g
+
+# npm upgrade -g
+# yarn upgrade -g
+# pnpm update -g
+```
 
 ## histroy
 
@@ -40,3 +90,5 @@ A highly customized CLI tool
 
 - 优化了选择创建的方式
 - 添加了创建 Vue 项目架构的功能
+- 支持适配 3 种包管理器的使用（npm、yarn、pnpm），但目前只支持 npm
+  > 确保一定项目一定要有`package-lock.json`等包管理锁文件才可以正常使用~~~~~

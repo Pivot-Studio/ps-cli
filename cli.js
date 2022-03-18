@@ -28,6 +28,8 @@ Uninstall
 
 const Upgrade = Program.command('u [package]')
 Upgrade
+    .option('-d , --dev', 'update in DevDependency')
+    .option('-s , --save', 'update in Dependency')
     .option('-g , --global', 'undate in Global')
     .description('update your packages in Devdependency or Global')
     .action(

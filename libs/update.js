@@ -16,7 +16,11 @@ module.exports = async (package, options) => {
             stdio: 'inherit'
         });
     } else {
-        child = spawn(packageManage, [Commands.upgrade, package], {
+        let op = '-g'
+        if (options.dev) op = '-D'
+        if (options.save) op = '-S'
+        if (options.global) op = '-g'
+        child = spawn(packageManage, [Commands.upgrade, op, package], {
             stdio: 'inherit'
         });
     }
