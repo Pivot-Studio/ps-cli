@@ -1,5 +1,6 @@
 const spawn = require('cross-spawn');
 const chalk = require('chalk')
+const figlet = require('figlet');
 
 module.exports = async (package, options) => {
     //package ：name ；options：参数选项
@@ -29,7 +30,14 @@ module.exports = async (package, options) => {
         }
         // 执行成功 0
         else {
-            console.log(chalk.cyan('Uninstall finished'))
+            figlet('Pivot Studio!!', function (err, data) {
+                if (err) {
+                    console.dir(err);
+                    return;
+                }
+                console.log(chalk.green(data))
+                console.log(chalk.cyan('Uninstall finished'))
+            });
         }
 
     })

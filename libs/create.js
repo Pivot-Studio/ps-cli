@@ -1,11 +1,53 @@
 const spawn = require('cross-spawn');
+const inquirer = require("inquirer")
 const chalk = require('chalk')
-const createComponent = require('./create-component.js')
+// const createComponent = require('./create-component.js')
+const { createProject, createComponent } = require('./creatures.js')
+module.exports = async () => {
+    let { creature } = await inquirer.prompt([{
+        type: "rawlist",
+        name: 'creature',
+        message: 'Choose what you want to create.',
+        choices: [{
+            name: 'Component',
+            value: 'component'
+        },
+        {
+            name: 'Project',
+            value: 'project'
+        }
+        ]
+    }])
 
-module.exports = async (name = 'component', ...args) => {
-    // create 的判断
-    // console.log(name, ...args);
-    if (name == 'component') {
-        createComponent()
+    if (creature == 'component') createComponent()
+    if (creature == 'project') {
+        let { version, projectName } = await inquirer.prompt([
+            {
+                type: "rawlist",
+                name: 'version',
+                message: 'Choose vue version you need',
+                choices: [{
+                    name: 'Vue2',
+                    value: 2
+                },
+                {
+                    name: 'Vue3',
+                    value: 3
+                }
+                ]
+            }, {
+                type: 'input',
+                name: 'projectName',
+                message: 'Your project name',
+                default: 'PS'
+            }
+
+        ])
+        if (version == 2) {
+            createProject(projectName)
+        }
+        if (version == 3) {
+            console.log(3);
+        }
     }
 }

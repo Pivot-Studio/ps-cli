@@ -26,7 +26,7 @@ Uninstall
     )
 
 
-const Create = Program.command('create [name]', { isDefault: true })
+const Create = Program.command('create', { isDefault: true })
 Create
     .description('create a new project')
     .action(createCallBack)
