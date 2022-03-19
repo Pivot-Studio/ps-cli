@@ -74,6 +74,16 @@ psc u -g
 # pnpm update -g
 ```
 
+#### x ---- execute
+
+```bash
+psc x jest
+
+# npx jest
+# yarn dlx jest
+# pnpm dlx jest
+```
+
 ## histroy
 
 #### v0.0.0
