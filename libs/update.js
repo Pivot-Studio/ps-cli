@@ -1,46 +1,24 @@
-const spawn = require('cross-spawn');
-const chalk = require('chalk')
-const figlet = require('figlet');
-const {
-    packageManage,
-    Commands
-} = require('./detect.js')
+import { packageManage } from './detect.js'
 
-module.exports = async (package, options) => {
-    //package ：name ；options：参数选项
-    let child;
-    if (!package) {
-        let op = ''
-        if (options.global) op = '-g'
-        child = spawn(packageManage, [Commands.upgrade, op], {
-            stdio: 'inherit'
-        });
-    } else {
-        let op = '-g'
-        if (options.dev) op = '-D'
-        if (options.save) op = '-S'
-        if (options.global) op = '-g'
-        child = spawn(packageManage, [Commands.upgrade, op, package], {
-            stdio: 'inherit'
-        });
+import { DEBUG, getCommand, remove, showFiglet } from '../utils/index.js'
+import * as execa from 'execa';
+
+export default async (options) => {
+    let debug = options.includes(DEBUG)
+    if (debug)
+        remove(options, DEBUG)
+
+    let command = getCommand('upgrade', options)
+    if (debug) {
+        console.log(command);
+        return
+    };
+    try {
+        await execa.execaCommand(command, { stdio: 'inherit', encoding: 'utf-8', cwd: process.cwd() })
+        showFiglet('Pivot Studio!!', 'upgrade finished')
+    } catch (error) {
+        console.log(chalk.red('Error occurred while upgrading dependencies!'));
+        process.exit(1);
     }
-    child.on('close', function (code) {
-        // 执行失败
-        if (code !== 0) {
-            console.log(chalk.red('Error occurred while update packages!'));
-            process.exit(1);
-        }
-        // 执行成功 0
-        else {
-            figlet('Pivot Studio!!', function (err, data) {
-                if (err) {
-                    console.dir(err);
-                    return;
-                }
-                console.log(chalk.green(data))
-                console.log(chalk.cyan('Update finished!!'))
-            });
-        }
 
-    })
 }
