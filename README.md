@@ -22,7 +22,18 @@ A highly customized CLI tool
 
 #### 创建组件或者 vue 项目架构 `psc create` （目前默认`psc`也是该作用）
 
+### debugger
 > 注意一下，以下命令是用于整合 3 种不同包管理工具的，**无论什么命令都可以在命令最后加一个`?`来进行调试**，打印出最终转化的命令
+
+例子：
+```bash
+psc i something -D ?
+
+// output 
+# npm install something -D
+# yarn add something -D
+# pnpm install something -D
+```
 
 #### i / ui --- install / uninstall
 
