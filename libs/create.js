@@ -1,9 +1,6 @@
-const spawn = require('cross-spawn');
-const inquirer = require("inquirer")
-const chalk = require('chalk')
-// const createComponent = require('./create-component.js')
-const { createProject, createComponent } = require('./creatures.js')
-module.exports = async () => {
+import inquirer from "inquirer"
+import { createProject, createComponent } from './creatures.js'
+export default async () => {
     let { creature } = await inquirer.prompt([{
         type: "rawlist",
         name: 'creature',

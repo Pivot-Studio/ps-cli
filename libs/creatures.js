@@ -1,25 +1,23 @@
-#! /usr/bin / env node
+import path from 'path';
 
-// #! 符号的名称叫 Shebang，用于指定脚本的解释程序
-// Node CLI 应用入口文件必须要有这样的文件头
-// 如果是Linux 或者 macOS 系统下还需要修改此文件的读写权限为 755
-// 具体就是通过 chmod 755 cli.js 实现修改
-const spawn = require('cross-spawn');
+import install from './install.js'
 
-const inquirer = require("inquirer")
-const path = require('path')
-const fs = require('fs')
-const ejs = require('ejs')
-const chalk = require('chalk')
-const ora = require('ora')
-const figlet = require('figlet');
+import inquirer from 'inquirer'
+import fs from 'fs';
+import ejs from 'ejs'
+import chalk from 'chalk';
+import ora from 'ora';
+import figlet from 'figlet';
+
 // process.cwd() 对应当前目录的路径
 const message = 'Creating files~'
 // 初始化
 const spinner = ora(message);
 
 const icons = ['.ico', '.png', '.jpg', '.svg']
-async function createComponent() {
+let dirname = path.resolve()
+
+export function createComponent() {
     inquirer.prompt([{
         type: 'input',
         name: 'componentName',
@@ -27,7 +25,7 @@ async function createComponent() {
         default: 'ps-component'
     }]).then(ans => {
         const destUrl = process.cwd()
-        const sourceUrl = path.resolve(__dirname, '../templates/component-templates')
+        const sourceUrl = path.resolve(dirname, './templates/component-templates')
 
         // 开始加载动画
         spinner.start();
@@ -77,9 +75,9 @@ function traseverDir(source, dest, name, relative = '') {
 
     })
 }
-async function createProject(name) {
+export async function createProject(name) {
     const destUrl = process.cwd()
-    const sourceUrl = path.resolve(__dirname, '../templates/vue2-ts-template')
+    const sourceUrl = path.resolve(dirname, './templates/vue2-ts-template')
     // process.cwd() 对应当前目录的路径
     const message = 'Creating Vue2 Project~'
     // 初始化
@@ -89,28 +87,7 @@ async function createProject(name) {
     // 遍历生成模板
     traseverDir(sourceUrl, destUrl, name)
     // 下载依赖
-    // 这里以后再改吧！！！！！！！！！！！！！！！！
-    let child = spawn('npm', ['install'], {
-        stdio: 'inherit'
-    });
-    child.on('close', function (code) {
-        // 执行失败
-        if (code !== 0) {
-            console.log(chalk.red('Error occurred while installing dependencies!'));
-            process.exit(1);
-        }
-        // 执行成功 0
-        else {
-            spinner.stop()
-            console.log(figlet.textSync('Pivot Studio!!'));
-            spinner.succeed(chalk.green('succeed')); // 成功 ✔
-        }
-    })
-
+    install([])
 }
 
 
-module.exports = {
-    createComponent,
-    createProject
-}

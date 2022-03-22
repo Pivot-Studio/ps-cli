@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 const LOCKS = {
     'pnpm-lock.yaml': 'pnpm',
     'yarn.lock': 'yarn',
@@ -7,12 +7,12 @@ const LOCKS = {
 }
 const AGENTS = {
     'npm': {
-        'install': 'install',
-        'frozen': 'ci',
-        'upgrade': 'update',
-        'execute': 'npx',
-        'uninstall': 'uninstall',
-        'uninstall_all': 'uninstall *',
+        'install': 'npm install {0}',
+        'frozen': 'npm ci',
+        'upgrade': 'npm update {0}',
+        'execute': 'npx {0}',
+        'uninstall': 'npm uninstall {0}',
+        'uninstall_all': 'npm uninstall *',
     },
     // 'yarn': {
     //     'run': 'yarn run {0}',
@@ -61,7 +61,31 @@ function detect() {
         }
     }
     ///['package-lock.json', 'D:\\workplace\\ps-cli']
-    if (typeof dest != 'object') throw new Error('Your project must have a package lock file!!')
+    // throw new Error('Your project must have a package lock file!!')
+    if (!dest) {
+        (async function () {
+            let { packageManager } = await inquirer.prompt([{
+                type: "rawlist",
+                name: 'packageManager',
+                message: 'Which package managers do you want to use?',
+                choices: [{
+                    name: 'Npm',
+                    value: 'package-lock.json'
+                },
+                {
+                    name: 'Pnpm',
+                    value: 'pnpm-lock.yaml'
+                },
+                {
+                    name: 'Yarn',
+                    value: 'yarn.lock'
+                }
+                ]
+            }])
+            dest = packageManager
+        })()
+
+    }
     return dest
 }
 /**
@@ -76,22 +100,15 @@ function findUp(prev, search, lock) {
     let files = fs.readdirSync(search)
     if (files.includes(lock)) {
         // console.log(lock);
-        return [lock, search]
+        return lock
     }
     else {
         prev = search
         return findUp(prev, path.resolve(search, '../'), lock)
     }
 }
-let res = detect()
-let packageManage = LOCKS[res[0]]
-let packageUrl = res[1]
-const Commands = AGENTS[packageManage]
+let dest = detect()
+export let packageManage = LOCKS[dest]
+export const Commands = AGENTS[packageManage]
 
 
-
-module.exports = {
-    packageManage,
-    packageUrl,
-    Commands
-}
