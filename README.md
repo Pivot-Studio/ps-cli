@@ -22,6 +22,8 @@ A highly customized CLI tool
 
 #### 创建组件或者 vue 项目架构 `psc create` （目前默认`psc`也是该作用）
 
+> 注意一下，以下命令是用于整合 3 种不同包管理工具的，**无论什么命令都可以在命令最后加一个`?`来进行调试**，打印出最终转化的命令
+
 #### i / ui --- install / uninstall
 
 ```bash
@@ -102,3 +104,4 @@ psc x jest
 - 添加了创建 Vue 项目架构的功能
 - 支持适配 3 种包管理器的使用（npm、yarn、pnpm），但目前只支持 npm
   > 确保一定项目一定要有`package-lock.json`等包管理锁文件才可以正常使用~~~~~
+- 移除了`Commander`命令行一系列管理工具，使用自定义解析

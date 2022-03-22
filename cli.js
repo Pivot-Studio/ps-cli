@@ -18,7 +18,7 @@ if (header == 'i') {
     uninstall(argv.slice(1))
 } else if (header == 'u') {
     update(argv.slice(1))
-} else if (header == 'create') {
+} else if (header == 'create' || !header) {
     create(argv.slice(1))
 
 }
