@@ -2,12 +2,16 @@ import {
     Commands
 } from '../libs/detect.js'
 import figlet from 'figlet'
+import chalk from 'chalk'
 
 export const DEBUG = '?'
 
 export function getCommand(command, args) {
     const c = Commands[command]
-    return c.replace('{0}', args.join(' ')).trim()
+    if (typeof c == 'function') {
+        return c(args)
+    }
+    else return c.replace('{0}', args.join(' ')).trim()
 }
 
 export function remove(arr, flag) {

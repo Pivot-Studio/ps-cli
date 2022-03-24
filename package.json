@@ -16,6 +16,7 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "ejs": "^3.1.6",
+    "es-dirname": "^0.1.0",
     "execa": "^6.1.0",
     "figlet": "^1.5.2",
     "inquirer": "^8.2.1",

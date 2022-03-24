@@ -1,7 +1,7 @@
 import path from 'path';
 
 import install from './install.js'
-
+import Dirname from 'es-dirname';
 import inquirer from 'inquirer'
 import fs from 'fs';
 import ejs from 'ejs'
@@ -15,7 +15,7 @@ const message = 'Creating files~'
 const spinner = ora(message);
 
 const icons = ['.ico', '.png', '.jpg', '.svg']
-let dirname = path.resolve()
+const dirname = Dirname()
 
 export function createComponent() {
     inquirer.prompt([{
@@ -25,8 +25,7 @@ export function createComponent() {
         default: 'ps-component'
     }]).then(ans => {
         const destUrl = process.cwd()
-        const sourceUrl = path.resolve(dirname, './templates/component-templates')
-
+        const sourceUrl = path.resolve(dirname, '../templates/component-templates')
         // 开始加载动画
         spinner.start();
         fs.readdir(sourceUrl, (err, data) => {
@@ -77,7 +76,7 @@ function traseverDir(source, dest, name, relative = '') {
 }
 export async function createProject(name) {
     const destUrl = process.cwd()
-    const sourceUrl = path.resolve(dirname, './templates/vue2-ts-template')
+    const sourceUrl = path.resolve(dirname, '../templates/vue2-ts-template')
     // process.cwd() 对应当前目录的路径
     const message = 'Creating Vue2 Project~'
     // 初始化

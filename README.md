@@ -24,6 +24,17 @@ A highly customized CLI tool
 
 > 注意一下，以下命令是用于整合 3 种不同包管理工具的，**无论什么命令都可以在命令最后加一个`?`来进行调试**，打印出最终转化的命令
 
+#### init
+
+```bash
+psc init
+
+# npm init
+# yarn init
+# pnpm init
+
+```
+
 #### i / ui --- install / uninstall
 
 ```bash
@@ -84,6 +95,16 @@ psc x jest
 # npx jest
 # yarn dlx jest
 # pnpm dlx jest
+```
+
+#### r ---- run
+
+```bash
+psc r dev --port=3000
+
+# npm run dev -- --port=3000
+# yarn run dev --port=3000
+# pnpm run dev -- --port=3000
 ```
 
 ## histroy
