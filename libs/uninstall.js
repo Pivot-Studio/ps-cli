@@ -1,17 +1,21 @@
-import { packageManage } from './detect.js'
 
 import { DEBUG, getCommand, remove, showFiglet } from '../utils/index.js'
+import chalk from 'chalk';
 import * as execa from 'execa';
 
 export default async (options) => {
     let debug = options.includes(DEBUG)
+    let isGlobal = options.includes('-g')
+    let command;
 
     if (debug)
         remove(options, DEBUG)
 
-    let command;
-    // 这里需要判断是否删除全部
-    if (options.length == 0) command = getCommand('uninstall_all', options)
+    if (isGlobal) {
+        // If i want to install a package in golbal,i must use 'global' instead of '-g' with yarn 
+        remove(options, '-g')
+        command = getCommand('uninstall_global', options)
+    }
     else command = getCommand('uninstall', options)
 
 
