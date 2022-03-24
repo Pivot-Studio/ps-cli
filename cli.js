@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
-// 现在需要用detect做一个相当于拦截器把。。。用于当没有lock文件的时候，用户自定义的去实现功能
+import chalk from 'chalk'
+
 import init from './libs/init.js'
 import install from './libs/install.js'
 import execute from './libs/execute.js'
@@ -29,4 +30,6 @@ if (header == 'init') {
 }
 else if (header == 'create' || !header) {
     create(body)
+} else {
+    console.warn(chalk.red('Wrong Command!'))
 }

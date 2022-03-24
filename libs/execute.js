@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 
 import { DEBUG, getCommand, remove, showFiglet } from '../utils/index.js'
 import * as execa from 'execa';

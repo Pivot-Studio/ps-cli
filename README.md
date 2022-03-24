@@ -62,11 +62,27 @@ psc i axios
 ```
 
 ```bash
+psc i axios -g
+
+# npm i axios -g
+# yarn add global axios
+# pnpm add -g axios
+```
+
+```bash
 psc ui <package>
 
 # npm uninstall <package>
 # yarn uninstall <package>
 # pnpm uninstall <package>
+```
+
+```bash
+psc ui <package> -g
+
+# npm uninstall <package> -g
+# yarn global uninstall <package>
+# pnpm remove --global <package>
 ```
 
 #### u --- update
@@ -85,6 +101,14 @@ psc u -g
 # npm upgrade -g
 # yarn upgrade -g
 # pnpm update -g
+```
+
+```bash
+psc u -i axios <--latest>
+
+# (nonsupport for npm)
+# yarn upgrade-interactive axios --latest
+# pnpm update -i axios --latest
 ```
 
 #### x ---- execute

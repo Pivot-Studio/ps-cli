@@ -4,10 +4,15 @@ import * as execa from 'execa';
 
 export default async (options) => {
     let debug = options.includes(DEBUG)
+    let isInteractive = options.includes('-i')
+    let command;
     if (debug)
         remove(options, DEBUG)
-
-    let command = getCommand('upgrade', options)
+    if (isInteractive) {
+        remove(options, '-i')
+        command = getCommand('upgrade-interactive', options)
+    }
+    else command = getCommand('upgrade', options)
     if (debug) {
         console.log(command);
         return

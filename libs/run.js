@@ -7,7 +7,6 @@ export default async (options) => {
     let command;
     if (debug)
         remove(options, DEBUG)
-    // console.log(options);
     command = getCommand('run', options)
 
     if (debug) {
