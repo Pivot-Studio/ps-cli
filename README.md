@@ -2,7 +2,7 @@
 
 ## description
 
-A highly customized CLI tool
+A highly customized CLI tool （目前支持**yarn、npm**）
 
 ## start
 
