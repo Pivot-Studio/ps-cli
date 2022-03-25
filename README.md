@@ -2,7 +2,7 @@
 
 ## description
 
-A highly customized CLI tool
+A highly customized CLI tool supporting for npm、pnpm and yarn. No more agonizing about switching between different package managers for different projects.
 
 ## start
 
@@ -143,6 +143,28 @@ psc r dev --port=3000
 # pnpm run dev -- --port=3000
 ```
 
+#### ls ---- list
+
+```bash
+psc ls <axios>
+
+# npm list axios
+# yarn list axios
+# pnpm list axios
+```
+
+```bash
+psc ls <axios> -v
+
+# npm view axios versions
+# npm view axios versions
+# npm view axios versions
+```
+
 ## histroy
 
-以后再说吧 先把功能做好
+### v0.0.0
+
+- 功能基本齐全，已经支持三种包管理工具（**npm**、**yarn**、**pnpm**）的自动识别使用。
+  【注】：这里是根据 Lockfile 来识别的。因此项目根目录下要有对应的 Lockfile
+  没有也没关系噢~~~

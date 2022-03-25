@@ -27,7 +27,9 @@ const AGENTS = {
         'execute': 'npx {0}',
         'uninstall': 'npm uninstall {0}',
         'uninstall_global': 'npm uninstall {0} -g',
-        'run': npmRun('npm')
+        'run': npmRun('npm'),
+        "list": 'npm ls {0}',
+        "view": "npm view {0} versions"
     },
     'yarn': {
         'init': 'yarn init',
@@ -42,6 +44,8 @@ const AGENTS = {
         'uninstall': 'yarn remove {0}',
         'uninstall_global': 'yarn global remove {0}',
         'run': 'yarn run {0}',
+        "list": 'yarn list {0}',
+        "view": "npm view {0} versions"
     },
     'pnpm': {
         'init': 'pnpm init',
@@ -56,6 +60,8 @@ const AGENTS = {
         'uninstall': 'pnpm remove {0}',
         'uninstall_global': 'pnpm remove --global {0}',
         'run': npmRun('pnpm'),
+        "list": 'pnpm ls {0}',
+        "view": "npm view {0} versions"
     },
 }
 async function detect() {

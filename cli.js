@@ -9,6 +9,7 @@ import uninstall from './libs/uninstall.js'
 import update from './libs/update.js'
 import create from './libs/create.js'
 import run from './libs/run.js'
+import list from './libs/list.js'
 
 const argv = process.argv.slice(2)
 
@@ -27,6 +28,8 @@ if (header == 'init') {
     update(body)
 } else if (header == 'r') {
     run(body)
+} else if (header == 'ls') {
+    list(body)
 }
 else if (header == 'create' || !header) {
     create(body)
