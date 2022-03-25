@@ -1,7 +1,6 @@
-
 import { DEBUG, getCommand, remove, showFiglet } from '../utils/index.js'
 import * as execa from 'execa';
-
+import chalk from 'chalk';
 export default async (options) => {
     let debug = options.includes(DEBUG)
     let command;

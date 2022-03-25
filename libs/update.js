@@ -5,12 +5,16 @@ import * as execa from 'execa';
 export default async (options) => {
     let debug = options.includes(DEBUG)
     let isInteractive = options.includes('-i')
+    let isGlobal = options.includes('-g')
     let command;
     if (debug)
         remove(options, DEBUG)
     if (isInteractive) {
         remove(options, '-i')
         command = getCommand('upgrade-interactive', options)
+    } else if (isGlobal) {
+        remove(options, '-g')
+        command = getCommand('upgrade-global', options)
     }
     else command = getCommand('upgrade', options)
     if (debug) {

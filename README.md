@@ -27,10 +27,11 @@ A highly customized CLI tool
 > 注意一下，以下命令是用于整合 3 种不同包管理工具的，**无论什么命令都可以在命令最后加一个`?`来进行调试**，打印出最终转化的命令
 
 例子：
+
 ```bash
 psc i something -D ?
 
-// output 
+// output
 # npm install something -D
 # yarn add something -D
 # pnpm install something -D
@@ -110,7 +111,7 @@ psc u <package> -s/-d
 psc u -g
 
 # npm upgrade -g
-# yarn upgrade -g
+# yarn global upgrade
 # pnpm update -g
 ```
 
@@ -144,4 +145,4 @@ psc r dev --port=3000
 
 ## histroy
 
-以后再说吧  先把功能做好
+以后再说吧 先把功能做好
