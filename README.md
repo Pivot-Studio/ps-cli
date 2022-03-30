@@ -6,14 +6,16 @@ A highly customized CLI tool supporting for npm、pnpm and yarn. No more agonizi
 
 ## start
 
-- 克隆项目
+`npm install ps-psc -g`
 
+- ~~克隆项目~~(以下均被废弃)
+```
 `git clone xxx`
 
 - link 到本地全局依赖中（目前还没有发布 npm 包）
 
 `npm link`
-
+```
 ## usage
 
 `psc`
