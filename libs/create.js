@@ -16,7 +16,25 @@ export default async () => {
         ]
     }])
 
-    if (creature == 'component') createComponent()
+    if (creature == 'component') {
+        let { component } = await inquirer.prompt([
+            {
+                type: "rawlist",
+                name: 'component',
+                message: 'Choose the component you want',
+                choices: [{
+                    name: 'Vue',
+                    value: 'Vue'
+                },
+                {
+                    name: 'React',
+                    value: 'React'
+                }
+                ]
+            }
+        ])
+        createComponent(component)
+    }
     if (creature == 'project') {
         let { version, projectName } = await inquirer.prompt([
             {

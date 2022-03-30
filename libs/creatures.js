@@ -11,13 +11,18 @@ import figlet from 'figlet';
 
 // process.cwd() 对应当前目录的路径
 const message = 'Creating files~'
+const ComponentMap = {
+    'Vue': '../templates/vue-component',
+    'React': '../templates/react-component'
+}
 // 初始化
 const spinner = ora(message);
 
 const icons = ['.ico', '.png', '.jpg', '.svg']
 const dirname = Dirname()
 
-export function createComponent() {
+export function createComponent(component) {
+    const sourceSuffix = ComponentMap[component]
     inquirer.prompt([{
         type: 'input',
         name: 'componentName',
@@ -25,7 +30,7 @@ export function createComponent() {
         default: 'ps-component'
     }]).then(ans => {
         const destUrl = process.cwd()
-        const sourceUrl = path.resolve(dirname, '../templates/component-templates')
+        const sourceUrl = path.resolve(dirname, sourceSuffix)
         // 开始加载动画
         spinner.start();
         fs.readdir(sourceUrl, (err, data) => {

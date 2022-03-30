@@ -1,15 +1,18 @@
 {
-  "name": "ps-cli",
+  "name": "ps-psc",
   "version": "0.0.1",
   "description": "Pivot Studio frontend cli tool",
   "main": "cli.js",
   "type": "module",
-  "private": true,
   "bin": {
     "psc": "./cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pivot-Studio/ps-cli.git"
   },
   "author": "Pivot Studio",
   "license": "ISC",
