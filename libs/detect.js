@@ -2,6 +2,8 @@ import fs from 'fs'
 import path, { resolve } from 'path'
 import inquirer from "inquirer"
 
+export let LocksPath;
+
 function npmRun(packageManager) {
     return (args) => {
         if (args.length > 1)
@@ -14,6 +16,7 @@ const LOCKS = {
     'yarn.lock': 'yarn',
     'package-lock.json': 'npm',
 }
+
 const AGENTS = {
     'npm': {
         'init': 'npm init',
@@ -112,7 +115,7 @@ function findUp(prev, search, lock) {
     if (prev == search) return
     let files = fs.readdirSync(search)
     if (files.includes(lock)) {
-        // console.log(lock);
+        LocksPath = path.join(search, 'package.json')
         return lock
     }
     else {

@@ -33,36 +33,85 @@ export default async () => {
                 ]
             }
         ])
-        createComponent(component)
+        let type;
+        if (component == 'React') {
+            type = (await inquirer.prompt([
+                {
+                    type: "rawlist",
+                    name: 'type',
+                    message: 'Choose the React component type you want',
+                    choices: [{
+                        name: 'Hook',
+                        value: 'Hook'
+                    },
+                    {
+                        name: 'Class',
+                        value: 'Class'
+                    }
+                    ]
+                }
+            ])).type
+        }
+        createComponent(component, type)
     }
     if (creature == 'project') {
-        let { version, projectName } = await inquirer.prompt([
+        let { frame } = await inquirer.prompt([
             {
                 type: "rawlist",
-                name: 'version',
-                message: 'Choose vue version you need',
+                name: 'frame',
+                message: 'which frame do you want',
                 choices: [{
-                    name: 'Vue2',
-                    value: 2
+                    name: 'Vue',
+                    value: 'Vue'
                 },
                 {
-                    name: 'Vue3',
-                    value: 3
+                    name: 'React',
+                    value: 'React'
                 }
                 ]
-            }, {
-                type: 'input',
-                name: 'projectName',
-                message: 'Your project name',
-                default: 'PS'
             }
-
         ])
-        if (version == 2) {
-            createProject(projectName)
+        if (frame == 'Vue') {
+            let { version, projectName } = await inquirer.prompt([
+                {
+                    type: "rawlist",
+                    name: 'version',
+                    message: 'Choose vue version you need',
+                    choices: [{
+                        name: 'Vue2',
+                        value: 2
+                    },
+                    {
+                        name: 'Vue3',
+                        value: 3
+                    }
+                    ]
+                }, {
+                    type: 'input',
+                    name: 'projectName',
+                    message: 'Your project name',
+                    default: 'PS'
+                }
+
+            ])
+            if (version == 2) {
+                createProject(frame,projectName)
+            }
+            if (version == 3) {
+                console.log(3);
+            }
         }
-        if (version == 3) {
-            console.log(3);
+        else {
+            let { projectName } = await inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'projectName',
+                    message: 'Your project name',
+                    default: 'PS'
+                }
+            ])
+            createProject(frame,projectName)
+
         }
     }
 }

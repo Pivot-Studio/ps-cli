@@ -4,11 +4,14 @@
 
 A highly customized CLI tool supporting for npm、pnpm and yarn. No more agonizing about switching between different package managers for different projects.
 
+Users can only remenber one command usage，and use Node more conveniently
+
 ## start
 
 `npm install ps-psc -g`
 
 - ~~克隆项目~~(以下均被废弃)
+
 ```
 `git clone xxx`
 
@@ -16,6 +19,7 @@ A highly customized CLI tool supporting for npm、pnpm and yarn. No more agonizi
 
 `npm link`
 ```
+
 ## usage
 
 `psc`
@@ -23,6 +27,9 @@ A highly customized CLI tool supporting for npm、pnpm and yarn. No more agonizi
 ![](./psc-example.png)
 
 #### 创建组件或者 vue 项目架构 `psc create` （目前默认`psc`也是该作用）
+
+- 支持创建 Vue2 版本以及 React+TypeScript 的项目 tempalte
+- 支持创建 Vue2 类组件以及 React 的类组件或者 Hook 函数组件
 
 #### debugger
 
@@ -138,6 +145,14 @@ psc x jest
 #### r ---- run
 
 ```bash
+psc r
+
+# npm run dev/serve/start
+# yarn run dev/serve/start
+# pnpm run dev/serve/start
+```
+
+```bash
 psc r dev --port=3000
 
 # npm run dev -- --port=3000
@@ -170,3 +185,5 @@ psc ls <axios> -v
 - 功能基本齐全，已经支持三种包管理工具（**npm**、**yarn**、**pnpm**）的自动识别使用。
   【注】：这里是根据 Lockfile 来识别的。因此项目根目录下要有对应的 Lockfile
   没有也没关系噢~~~
+
+- 为了可以节省出更多的时间摸鱼（不是），默认 `psc r` 命令可以自动解析你的`package.json`并执行其中的 run-start 命令

@@ -13,7 +13,14 @@ import figlet from 'figlet';
 const message = 'Creating files~'
 const ComponentMap = {
     'Vue': '../templates/vue-component',
-    'React': '../templates/react-component'
+    'React': {
+        'Class': '../templates/react-component/react-class-component',
+        'Hook': '../templates/react-component/react-hook-component',
+    }
+}
+const ProjectMap = {
+    'Vue': '../templates/vue2-ts-template',
+    'React': "../templates/react-hook-template"
 }
 // 初始化
 const spinner = ora(message);
@@ -21,8 +28,8 @@ const spinner = ora(message);
 const icons = ['.ico', '.png', '.jpg', '.svg']
 const dirname = Dirname()
 
-export function createComponent(component) {
-    const sourceSuffix = ComponentMap[component]
+export function createComponent(component, type) {
+    const sourceSuffix = type ? ComponentMap[component][type] : ComponentMap[component]
     inquirer.prompt([{
         type: 'input',
         name: 'componentName',
@@ -79,9 +86,11 @@ function traseverDir(source, dest, name, relative = '') {
 
     })
 }
-export async function createProject(name) {
+export async function createProject(frame, name) {
     const destUrl = process.cwd()
-    const sourceUrl = path.resolve(dirname, '../templates/vue2-ts-template')
+    const sourceSuffix = ProjectMap[frame]
+
+    const sourceUrl = path.resolve(dirname, sourceSuffix)
     // process.cwd() 对应当前目录的路径
     const message = 'Creating Vue2 Project~'
     // 初始化
