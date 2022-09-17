@@ -1,6 +1,11 @@
-import { DEBUG, getCommand, remove, showFiglet } from '../utils';
-import { LocksPath } from './detect';
-import * as execa from 'execa';
+import {
+  DEBUG,
+  getCommand,
+  remove,
+  showFiglet,
+  execCommand,
+} from '../utils/index';
+import detect from './detect';
 import chalk from 'chalk';
 import fs from 'fs';
 
@@ -9,11 +14,17 @@ export default async (options) => {
   let debug = options.includes(DEBUG);
   let command;
   if (debug) remove(options, DEBUG);
+  const { locksPath } = await detect();
   // 默认是run start
   if (options == undefined || options.length == 0) {
-    let { scripts } = JSON.parse(fs.readFileSync(LocksPath));
+    let { scripts } = JSON.parse(
+      fs.readFileSync(locksPath, {
+        encoding: 'utf-8',
+      })
+    );
     for (let start of startMap) {
       if (start in scripts) {
+        // eslint-disable-next-line no-param-reassign
         options = [start];
       }
     }
@@ -26,18 +37,14 @@ export default async (options) => {
     );
     process.exit(1);
   }
-  command = getCommand('run', options);
+  command = await getCommand('run', options);
 
   if (debug) {
     console.log(command);
     return;
   }
   try {
-    await execa.execaCommand(command, {
-      stdio: 'inherit',
-      encoding: 'utf-8',
-      cwd: process.cwd(),
-    });
+    await execCommand(command);
     showFiglet('Pivot Studio!!', 'Your scripting ran');
   } catch (error) {
     console.log(chalk.red('Error occurred while runner your scripting'));

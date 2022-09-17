@@ -1,6 +1,5 @@
-import { DEBUG, getCommand, remove, showFiglet } from '../utils';
+import { DEBUG, getCommand, remove, showFiglet,execCommand } from '../utils/index';
 import chalk from 'chalk';
-import * as execa from 'execa';
 
 export default async (options) => {
   let debug = options.includes(DEBUG);
@@ -10,26 +9,22 @@ export default async (options) => {
   if (debug) remove(options, DEBUG);
   if (isFrozen) {
     remove(options, '--frozen');
-    command = getCommand('frozen', options);
+    command = await getCommand('frozen', options);
   } else if (isGlobal) {
     // If i want to install a package in golbal,i must use 'global' instead of '-g' with yarn
     remove(options, '-g');
-    command = getCommand('global', options);
+    command = await getCommand('global', options);
   } else if (options.length > 0) {
     // The difference between downloading allpackages and a single package is described
     // in the yarn command
-    command = getCommand('add', options);
-  } else command = getCommand('install', options);
+    command = await getCommand('add', options);
+  } else command = await getCommand('install', options);
   if (debug) {
     console.log(command);
     return;
   }
   try {
-    await execa.execaCommand(command, {
-      stdio: 'inherit',
-      encoding: 'utf-8',
-      cwd: process.cwd(),
-    });
+    await execCommand(command);
     showFiglet('Pivot Studio!!', 'install finished');
   } catch (error) {
     console.log(chalk.red('Error occurred while installing dependencies!'));

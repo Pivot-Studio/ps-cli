@@ -2,14 +2,13 @@
   "name": "@ps/zeus",
   "version": "0.0.1",
   "description": "Pivot Studio frontend cli tool",
-  "main": "cli.js",
-  "type": "module",
+  "main": "./dist/cli.js",
   "bin": {
     "zeus": "./dist/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "ttsc"
   },
   "repository": {
     "type": "git",
@@ -37,6 +36,7 @@
     "eslint-plugin-react": "^7.31.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1",
-    "typescript": "^4.8.2"
+    "ttypescript": "^1.5.13",
+    "typescript-transform-paths": "^3.3.1"
   }
 }

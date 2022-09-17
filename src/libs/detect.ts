@@ -1,9 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import inquirer from 'inquirer';
-
-export let LocksPath;
-
 function npmRun(packageManager) {
   return (args) => {
     if (args.length > 1)
@@ -14,7 +11,7 @@ function npmRun(packageManager) {
 const LOCKS = {
   'pnpm-lock.yaml': 'pnpm',
   'yarn.lock': 'yarn',
-  'package-lockon': 'npm',
+  'package-lock.json': 'npm',
 };
 
 const AGENTS = {
@@ -69,10 +66,15 @@ const AGENTS = {
 };
 async function detect() {
   let cwd = process.cwd();
-  let dest = '';
 
+  let dest = '';
+  let locksPath = '';
+  let m: any;
   for (let lock of Object.keys(LOCKS)) {
-    if ((dest = findUp('', cwd, lock))) {
+    if ((m = findUp('', cwd, lock))) {
+      const { lock, LocksPath } = m;
+      dest = lock;
+      locksPath = LocksPath;
       break;
     }
   }
@@ -102,7 +104,7 @@ async function detect() {
     ]);
     dest = packageManager;
   }
-  return dest;
+  return [dest, locksPath];
 }
 /**
  * @description:
@@ -115,14 +117,20 @@ function findUp(prev, search, lock) {
   if (prev == search) return;
   let files = fs.readdirSync(search);
   if (files.includes(lock)) {
-    LocksPath = path.join(search, 'packageon');
-    return lock;
+    const LocksPath = path.join(search, 'packageon');
+    return { lock, LocksPath };
   } else {
+    // eslint-disable-next-line no-param-reassign
     prev = search;
     return findUp(prev, path.resolve(search, '../'), lock);
   }
 }
-
-let res = await detect();
-export let packageManage = LOCKS[res];
-export let Commands = AGENTS[packageManage];
+export default async function () {
+  let [res, locksPath] = await detect();
+  const packageManage = LOCKS[res];
+  return {
+    packageManage,
+    Commands: AGENTS[packageManage],
+    locksPath,
+  };
+}

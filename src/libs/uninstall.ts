@@ -1,6 +1,11 @@
-import { DEBUG, getCommand, remove, showFiglet } from '../utils';
+import {
+  DEBUG,
+  getCommand,
+  remove,
+  showFiglet,
+  execCommand,
+} from '../utils/index';
 import chalk from 'chalk';
-import * as execa from 'execa';
 
 export default async (options) => {
   let debug = options.includes(DEBUG);
@@ -12,8 +17,8 @@ export default async (options) => {
   if (isGlobal) {
     // If i want to install a package in golbal,i must use 'global' instead of '-g' with yarn
     remove(options, '-g');
-    command = getCommand('uninstall_global', options);
-  } else command = getCommand('uninstall', options);
+    command = await getCommand('uninstall_global', options);
+  } else command = await getCommand('uninstall', options);
 
   if (debug) {
     console.log(command);
@@ -21,11 +26,7 @@ export default async (options) => {
   }
 
   try {
-    await execa.execaCommand(command, {
-      stdio: 'inherit',
-      encoding: 'utf-8',
-      cwd: process.cwd(),
-    });
+    await execCommand(command);
     showFiglet('Pivot Studio!!', 'uninstall finished');
   } catch (error) {
     console.log(chalk.red('Error occurred while uninstalling dependencies!'));

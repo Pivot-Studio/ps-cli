@@ -1,10 +1,22 @@
-import { Commands } from '../libs/detect';
+import detect from '../libs/detect';
 import figlet from 'figlet';
 import chalk from 'chalk';
-
 export const DEBUG = '?';
+import process from 'child_process';
 
-export function getCommand(command, args) {
+export function execCommand(command: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    process.exec(command, function (error, stdout, stderr) {
+      if (error) {
+        return reject(error);
+      }
+      resolve(stdout);
+    });
+  });
+}
+
+export async function getCommand(command, args) {
+  const { Commands } = await detect();
   const c = Commands[command];
   if (typeof c == 'object')
     throw new Error(

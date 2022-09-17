@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 import init from './libs/init';
 import install from './libs/install';
@@ -31,7 +31,7 @@ if (header == 'init') {
 } else if (header == 'ls') {
   list(body);
 } else if (header == 'create' || !header) {
-  create(body);
+  create();
 } else {
   console.warn(chalk.red('Wrong Command!'));
 }

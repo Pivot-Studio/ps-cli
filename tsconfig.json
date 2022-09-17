@@ -1,12 +1,27 @@
 {
   "compilerOptions": {
-   "lib" : ["ES2016"],
-   "module": "commonjs",  //配置编译目标时使用的模块化标准
-   "outDir": "./dist",  //编译结果的文件夹
-   "allowJs": true,
-   "esModuleInterop": true,
-   "target": "es2016"  //配置编译时目标使用的代码标准
+    "target": "ES2015" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */,
+    "module": "CommonJS" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */,
+    "lib": [
+      "DOM"
+    ] /* Specify library files to be included in the compilation. */,
+    "outDir": "./dist", //编译结果的文件夹
+    "rootDir": "./src",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths" // 用于解析自定义path属性 如 @
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
   },
-  "include": ["./src"]  //编译的文件夹
+  "include": ["./src"] //编译的文件夹
   // "files": ["./src/index.ts"]    //编译某一个文件
 }
