@@ -1,14 +1,34 @@
-# ps-cli
-
+# @ps/zues
+>  [开发同学可以点击这里查看更多](https://pivotstudio.feishu.cn/docx/doxcnhVUayYGvNDWHIjyBdhZkSg)
 ## description
 
 A highly customized CLI tool supporting for npm、pnpm and yarn. No more agonizing about switching between different package managers for different projects.
 
 Users can only remenber one command usage，and use Node more conveniently
 
-## start
+## features
 
-`npm install ps-psc -g`
+- 内聚了npm、pnpm、yarn三种包管理器的命令 
+
+## changelogs
+
+### v0.0.1
+
+- 功能基本齐全，已经支持三种包管理工具（**npm**、**yarn**、**pnpm**）的自动识别使用。
+  【注】：这里是根据 Lockfile 来识别的。因此项目根目录下要有对应的 Lockfile
+  没有也没关系噢~~~
+
+- 为了可以节省出更多的时间摸鱼（不是），默认 `zeus r` 命令可以自动解析你的`package.json`并执行其中的 run-start 命令
+
+
+
+## 开发须知
+
+1. clone到本地
+2. 在项目根目录上执行`npm link`
+3. 启动： `npm run start` 。启动后在本地执行`zeus xxx`命令即可看到编译效果
+4. 打包： `npm run build`
+## start
 
 - ~~克隆项目~~(以下均被废弃)
 
@@ -22,11 +42,11 @@ Users can only remenber one command usage，and use Node more conveniently
 
 ## usage
 
-`psc`
+`zeus`
 
-![](./psc-example.png)
+![](./zeus-example.png)
 
-#### 创建组件或者 vue 项目架构 `psc create` （目前默认`psc`也是该作用）
+#### 创建组件或者 vue 项目架构 `zeus create` （目前默认`zeus`也是该作用）
 
 - 支持创建 Vue2 版本以及 React+TypeScript 的项目 tempalte
 - 支持创建 Vue2 类组件以及 React 的类组件或者 Hook 函数组件
@@ -38,7 +58,7 @@ Users can only remenber one command usage，and use Node more conveniently
 例子：
 
 ```bash
-psc i something -D ?
+zeus i something -D ?
 
 // output
 # npm install something -D
@@ -49,7 +69,7 @@ psc i something -D ?
 #### init
 
 ```bash
-psc init
+zeus init
 
 # npm init
 # yarn init
@@ -59,7 +79,7 @@ psc init
 #### i / ui --- install / uninstall
 
 ```bash
-psc i
+zeus i
 
 # npm install
 # yarn install
@@ -67,7 +87,7 @@ psc i
 ```
 
 ```bash
-psc i --frozen
+zeus i --frozen
 
 # npm ci
 # yarn install --frozen-lockfile
@@ -75,7 +95,7 @@ psc i --frozen
 ```
 
 ```bash
-psc i axios
+zeus i axios
 
 # npm i axios
 # yarn add axios
@@ -83,7 +103,7 @@ psc i axios
 ```
 
 ```bash
-psc i axios -g
+zeus i axios -g
 
 # npm i axios -g
 # yarn add global axios
@@ -91,7 +111,7 @@ psc i axios -g
 ```
 
 ```bash
-psc ui <package>
+zeus ui <package>
 
 # npm uninstall <package>
 # yarn uninstall <package>
@@ -99,7 +119,7 @@ psc ui <package>
 ```
 
 ```bash
-psc ui <package> -g
+zeus ui <package> -g
 
 # npm uninstall <package> -g
 # yarn global uninstall <package>
@@ -109,7 +129,7 @@ psc ui <package> -g
 #### u --- update
 
 ```bash
-psc u <package> -s/-d
+zeus u <package> -s/-d
 
 # npm upgrade <package>
 # yarn upgrade <package>
@@ -117,7 +137,7 @@ psc u <package> -s/-d
 ```
 
 ```bash
-psc u -g
+zeus u -g
 
 # npm upgrade -g
 # yarn global upgrade
@@ -125,7 +145,7 @@ psc u -g
 ```
 
 ```bash
-psc u -i axios <--latest>
+zeus u -i axios <--latest>
 
 # (nonsupport for npm)
 # yarn upgrade-interactive axios --latest
@@ -135,7 +155,7 @@ psc u -i axios <--latest>
 #### x ---- execute
 
 ```bash
-psc x jest
+zeus x jest
 
 # npx jest
 # yarn dlx jest
@@ -145,7 +165,7 @@ psc x jest
 #### r ---- run
 
 ```bash
-psc r
+zeus r
 
 # npm run dev/serve/start
 # yarn run dev/serve/start
@@ -153,7 +173,7 @@ psc r
 ```
 
 ```bash
-psc r dev --port=3000
+zeus r dev --port=3000
 
 # npm run dev -- --port=3000
 # yarn run dev --port=3000
@@ -163,7 +183,7 @@ psc r dev --port=3000
 #### ls ---- list
 
 ```bash
-psc ls <axios>
+zeus ls <axios>
 
 # npm list axios
 # yarn list axios
@@ -171,19 +191,10 @@ psc ls <axios>
 ```
 
 ```bash
-psc ls <axios> -v
+zeus ls <axios> -v
 
 # npm view axios versions
 # npm view axios versions
 # npm view axios versions
 ```
 
-## changelogs
-
-### v0.0.1
-
-- 功能基本齐全，已经支持三种包管理工具（**npm**、**yarn**、**pnpm**）的自动识别使用。
-  【注】：这里是根据 Lockfile 来识别的。因此项目根目录下要有对应的 Lockfile
-  没有也没关系噢~~~
-
-- 为了可以节省出更多的时间摸鱼（不是），默认 `psc r` 命令可以自动解析你的`package.json`并执行其中的 run-start 命令
