@@ -1,33 +1,27 @@
-import { DEBUG, getCommand, remove, showFiglet,execCommand } from '../utils/index';
-import chalk from 'chalk';
-
-export default async (options) => {
-  let debug = options.includes(DEBUG);
-  let isFrozen = options.includes('--frozen');
-  let isGlobal = options.includes('-g');
-  let command;
-  if (debug) remove(options, DEBUG);
-  if (isFrozen) {
-    remove(options, '--frozen');
-    command = await getCommand('frozen', options);
-  } else if (isGlobal) {
-    // If i want to install a package in golbal,i must use 'global' instead of '-g' with yarn
-    remove(options, '-g');
-    command = await getCommand('global', options);
-  } else if (options.length > 0) {
-    // The difference between downloading allpackages and a single package is described
-    // in the yarn command
-    command = await getCommand('add', options);
-  } else command = await getCommand('install', options);
-  if (debug) {
-    console.log(command);
-    return;
+import BasePlugin from './basePlugin';
+import { spliceArr, getCommand } from '../utils';
+export default class InstallPlugin extends BasePlugin {
+  // 子命令Plugin通过以下形式在BasePlugin中进行挂载
+  constructor(options: string[]) {
+    super('install', options);
+    super.customGetCommand = this.childGetCommand;
+    super.start();
   }
-  try {
-    await execCommand(command);
-    showFiglet('Pivot Studio!!', 'install finished');
-  } catch (error) {
-    console.log(chalk.red('Error occurred while installing dependencies!'));
-    process.exit(1);
+  async childGetCommand(tag: string, excludeDebugOption: string[]) {
+    let isFrozen = excludeDebugOption.includes('--frozen');
+    let isGlobal = excludeDebugOption.includes('-g');
+    if (isFrozen) {
+      return await getCommand(
+        'frozen',
+        spliceArr(excludeDebugOption, '--frozen')
+      );
+    } else if (isGlobal) {
+      // If i want to install a package in golbal,i must use 'global' instead of '-g' with yarn
+      return await getCommand('global', spliceArr(excludeDebugOption, '-g'));
+    } else if (excludeDebugOption.length > 0) {
+      // The difference between downloading allpackages and a single package is described
+      // in the yarn command
+      return await getCommand('add', excludeDebugOption);
+    } else return await getCommand('install', excludeDebugOption);
   }
-};
+}

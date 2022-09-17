@@ -3,7 +3,7 @@
 import chalk from 'chalk';
 
 import init from './libs/init';
-import install from './libs/install';
+import installPlugin from './libs/install';
 import execute from './libs/execute';
 import uninstall from './libs/uninstall';
 import update from './libs/update';
@@ -19,7 +19,7 @@ const body = argv.slice(1);
 if (header == 'init') {
   init(body);
 } else if (header == 'i') {
-  install(body);
+  new installPlugin(body);
 } else if (header == 'x') {
   execute(body);
 } else if (header == 'ui') {

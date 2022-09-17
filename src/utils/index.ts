@@ -34,6 +34,14 @@ export function remove(arr, flag) {
   }
 }
 
+export function spliceArr<T>(arr: Array<T>, flag: T) {
+  let index = arr.indexOf(flag);
+  if (index > -1) {
+    return arr.filter((_, i) => i !== index);
+  }
+  return arr;
+}
+
 export function showFiglet(logo, finishText) {
   figlet(logo, function (err, data) {
     if (err) {
