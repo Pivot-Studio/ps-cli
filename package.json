@@ -1,5 +1,5 @@
 {
-  "name": "@ps/zeus",
+  "name": "@psfe/zeus",
   "version": "0.0.1",
   "description": "Pivot Studio frontend cli tool",
   "main": "./dist/cli.js",
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "https://github.com/Pivot-Studio/ps-cli.git"
   },
-  "author": "zhanjingxi-Pivot Studio",
+  "author": "zhanjingxi",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
@@ -31,7 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "eslint": "^8.23.0",
-    "eslint-config-strk2": "^1.0.4",
+    "eslint-config-psfe": "^1.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.1",

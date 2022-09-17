@@ -1,8 +1,8 @@
 import detect from '../libs/detect';
 import figlet from 'figlet';
 import chalk from 'chalk';
-export const DEBUG = '?';
 import process from 'child_process';
+export const DEBUG = '?';
 
 export function execCommand(command: string): Promise<string> {
   return new Promise((resolve, reject) => {
