@@ -33,14 +33,8 @@ export default class BasePlugin {
     // this._start(debug, command, excludeDebugOption);
   }
   async start() {
-    if (this.customGetCommand) {
-      this.command = await this.customGetCommand(
-        this.tag,
-        this.excludeDebugOption
-      );
-    } else {
-      this.command = await this._getCommand(this.tag, this.excludeDebugOption);
-    }
+    this.command = await this._getCommand(this.tag, this.excludeDebugOption);
+
     // startHook(this.command)
     if (this.debug) {
       this._showDebugCommand();
@@ -55,12 +49,13 @@ export default class BasePlugin {
     }
   }
   private async _getCommand(command: string, excludeDebugOption: string[]) {
-    return await getCommand(command, excludeDebugOption);
+    if (this.customGetCommand) {
+      return await this.customGetCommand(this.tag, this.excludeDebugOption);
+    } else return await getCommand(command, excludeDebugOption);
   }
   private async _executeCommand() {
     await execCommand(this.command);
     // successHook
-    showFiglet('Pivot Studio!!', 'execute finished');
   }
   private _showDebugCommand() {
     console.log(this.command);

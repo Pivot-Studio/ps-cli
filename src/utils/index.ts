@@ -1,12 +1,22 @@
 import detect from '../libs/detect';
 import figlet from 'figlet';
 import chalk from 'chalk';
-import process from 'child_process';
+import { spawn, exec } from 'child_process';
 export const DEBUG = '?';
 
 export function execCommand(command: string): Promise<string> {
+  return new Promise(() => {
+    const commands = command.split(' ');
+    spawn(commands[0], commands.slice(1), {
+      stdio: 'inherit',
+      shell: process.platform === 'win32',
+    });
+  });
+}
+
+export function execCommandAsync(command: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    process.exec(command, function (error, stdout, stderr) {
+    exec(command, function (error, stdout) {
       if (error) {
         return reject(error);
       }
@@ -14,7 +24,6 @@ export function execCommand(command: string): Promise<string> {
     });
   });
 }
-
 export async function getCommand(command, args) {
   const { Commands } = await detect();
   const c = Commands[command];
