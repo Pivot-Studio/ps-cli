@@ -10,8 +10,6 @@
     "allowJs": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "declaration": true,
-    "declarationMap": true,
     "plugins": [
       {
         "transform": "typescript-transform-paths" // 用于解析自定义path属性 如 @

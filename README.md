@@ -178,7 +178,7 @@ psc ls <axios> -v
 # npm view axios versions
 ```
 
-## histroy
+## changelogs
 
 ### v0.0.1
 
