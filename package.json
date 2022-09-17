@@ -1,20 +1,21 @@
 {
-  "name": "ps-psc",
+  "name": "@ps/zeus",
   "version": "0.0.1",
   "description": "Pivot Studio frontend cli tool",
   "main": "cli.js",
   "type": "module",
   "bin": {
-    "psc": "./cli.js"
+    "zeus": "./dist/cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Pivot-Studio/ps-cli.git"
   },
-  "author": "Pivot Studio",
+  "author": "zhanjingxi-Pivot Studio",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
@@ -25,5 +26,17 @@
     "inquirer": "^8.2.1",
     "ora": "^5.4.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "^18.7.18",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
+    "eslint": "^8.23.0",
+    "eslint-config-strk2": "^1.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.2"
+  }
 }

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+   "lib" : ["ES2016"],
+   "module": "commonjs",  //配置编译目标时使用的模块化标准
+   "outDir": "./dist",  //编译结果的文件夹
+   "allowJs": true,
+   "esModuleInterop": true,
+   "target": "es2016"  //配置编译时目标使用的代码标准
+  },
+  "include": ["./src"]  //编译的文件夹
+  // "files": ["./src/index.ts"]    //编译某一个文件
+}
