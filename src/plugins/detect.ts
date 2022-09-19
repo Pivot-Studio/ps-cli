@@ -66,7 +66,6 @@ const AGENTS = {
 };
 async function detect() {
   let cwd = process.cwd();
-
   let dest = '';
   let locksPath = '';
   let m: any;
@@ -89,7 +88,7 @@ async function detect() {
         choices: [
           {
             name: 'Npm',
-            value: 'package-lockon',
+            value: 'package-lock.json',
           },
           {
             name: 'Pnpm',

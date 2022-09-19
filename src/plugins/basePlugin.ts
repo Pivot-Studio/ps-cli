@@ -1,11 +1,5 @@
 import chalk from 'chalk';
-import {
-  DEBUG,
-  getCommand,
-  spliceArr,
-  showFiglet,
-  execCommand,
-} from '../utils/index';
+import { DEBUG, getCommand, spliceArr, execCommand } from '../utils/index';
 export default class BasePlugin {
   // todo 引入HookMap  command->[fn.....]
   // 注册插件->解析参数->获取命令->执行命令
@@ -13,6 +7,9 @@ export default class BasePlugin {
   tag: string;
   debug: boolean;
   excludeDebugOption: string[];
+  /**
+   * 自定义获取命令方法：可以自定义最终输出的命令
+   */
   customGetCommand?: (
     tag: string,
     excludeDebugOption: string[]
@@ -25,16 +22,15 @@ export default class BasePlugin {
   constructor(tag: string, options: string[]) {
     this.debug = options.includes(DEBUG);
     this.tag = tag;
-    const excludeDebugOption = [];
+    let excludeDebugOption = options.concat();
     if (this.debug) {
-      excludeDebugOption.push(...spliceArr(options, DEBUG));
+      excludeDebugOption = spliceArr(excludeDebugOption, DEBUG);
     }
     this.excludeDebugOption = excludeDebugOption;
     // this._start(debug, command, excludeDebugOption);
   }
   async start() {
     this.command = await this._getCommand(this.tag, this.excludeDebugOption);
-
     // startHook(this.command)
     if (this.debug) {
       this._showDebugCommand();

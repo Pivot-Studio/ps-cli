@@ -1,4 +1,4 @@
-import detect from '../libs/detect';
+import detect from '../plugins/detect';
 import figlet from 'figlet';
 import chalk from 'chalk';
 import { spawn, exec } from 'child_process';
@@ -45,10 +45,12 @@ export function remove(arr, flag) {
 
 export function spliceArr<T>(arr: Array<T>, flag: T) {
   let index = arr.indexOf(flag);
+  const res = arr.concat();
   if (index > -1) {
-    return arr.filter((_, i) => i !== index);
+    return res.filter((_, i) => i !== index);
   }
-  return arr;
+
+  return res;
 }
 
 export function showFiglet(logo, finishText) {

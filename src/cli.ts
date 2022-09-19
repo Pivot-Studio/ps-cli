@@ -1,25 +1,24 @@
 #! /usr/bin/env node
 
 import chalk from 'chalk';
-
-import init from './libs/init';
-import installPlugin from './libs/install';
-import execute from './libs/execute';
-import uninstall from './libs/uninstall';
-import update from './libs/update';
-import create from './libs/create';
-import run from './libs/run';
-import list from './libs/list';
-
+import Parser from './parser';
+import InitPlugin from './plugins/init';
+import InstallPlugin from './plugins/install';
+import execute from './plugins/execute';
+import uninstall from './plugins/uninstall';
+import update from './plugins/update';
+// import create from './plugins/create';
+import run from './plugins/run';
+import list from './plugins/list';
 const argv = process.argv.slice(2);
 
 const header = argv[0];
 const body = argv.slice(1);
 
 if (header == 'init') {
-  init(body);
+  new InitPlugin(body);
 } else if (header == 'i') {
-  new installPlugin(body);
+  new InstallPlugin(body);
 } else if (header == 'x') {
   execute(body);
 } else if (header == 'ui') {
@@ -31,7 +30,9 @@ if (header == 'init') {
 } else if (header == 'ls') {
   list(body);
 } else if (header == 'create' || !header) {
-  create();
+  // create();
+  new Parser();
 } else {
-  console.warn(chalk.red('Wrong Command!'));
+  new Parser();
+  // console.warn(chalk.red('Wrong Command!'));
 }
