@@ -7,38 +7,39 @@ import { hideBin } from 'yargs/helpers';
 // import uninstall from './plugins/uninstall';
 // import update from './plugins/update';
 // import create from './plugins/create';
+import CreatePlugin from './plugins/createPlugin';
 // import run from './plugins/run';
 // import list from './plugins/list';
 
 export default class Parser {
+  pluginMap: Map<string, any>;
   constructor() {
-    yargs(hideBin(process.argv))
+    const createPlugin = new CreatePlugin();
+    this.pluginMap = new Map();
+    this.pluginMap.set('create', createPlugin);
+    this._parse();
+  }
+  private _parse() {
+    const { argv } = yargs(hideBin(process.argv))
       .strict()
       .scriptName('zeus')
       .usage('Usage: $0 [command]')
+      .command(
+        '$0',
+        'the default command 等同于 <zeus create>',
+        (yargs) => this.pluginMap.get('create').getOptions(yargs),
+        (argv) => this.pluginMap.get('create').handler(argv)
+      )
       .alias('h', 'help')
       .command({
         command: 'create',
         describe: '初始化项目模板',
-        builder: (yargs) => {
-          return yargs
-            .options({
-              react: {
-                describe: 'React H5项目模板',
-                boolean: false,
-              },
-              typescript: {
-                describe: 'typescript 项目模板',
-                boolean: false,
-              },
-            })
-            .usage('$0 create [--react/--typescript]'); // 辅助指南，终端输出的可以看到
-        },
+        builder: (yargs) => this.pluginMap.get('create').getOptions(yargs),
         handler: async (argv) => {
           console.log(argv, '$0');
           // clean(argv?.path);
         },
       })
-      .help().argv;
+      .help();
   }
 }

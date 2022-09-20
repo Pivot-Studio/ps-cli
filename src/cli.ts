@@ -2,8 +2,8 @@
 
 import chalk from 'chalk';
 import Parser from './parser';
-import InitPlugin from './plugins/init';
-import InstallPlugin from './plugins/install';
+import InitPlugin from './plugins/initPlugin';
+import InstallPlugin from './plugins/installPlugin';
 import execute from './plugins/execute';
 import uninstall from './plugins/uninstall';
 import update from './plugins/update';

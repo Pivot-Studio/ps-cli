@@ -1,6 +1,6 @@
 import path from 'path';
 
-import install from './install';
+import install from './installPlugin';
 import Dirname from 'es-dirname';
 import inquirer from 'inquirer';
 import fs from 'fs';
