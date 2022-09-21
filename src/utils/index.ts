@@ -3,6 +3,7 @@ import figlet from 'figlet';
 import chalk from 'chalk';
 import { spawn, exec } from 'child_process';
 export const DEBUG = '?';
+export const LOCAL_PATH = '.zeus/bolierplates';
 
 export function execCommand(command: string): Promise<string> {
   return new Promise(() => {

@@ -1,5 +1,5 @@
 import BasePlugin from './basePlugin';
-import { spliceArr, getCommand } from '../utils';
+import { spliceArr, getCommand } from '../../utils';
 export default class InstallPlugin extends BasePlugin {
   // 子命令Plugin通过以下形式在BasePlugin中进行挂载
   constructor(options: string[]) {
