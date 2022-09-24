@@ -16,7 +16,6 @@ export default class Parser {
   constructor() {
     const createPlugin = new CreatePlugin();
     this.pluginMap = new Map();
-
     this.pluginMap.set('create', createPlugin);
     this._parse();
   }
@@ -24,7 +23,7 @@ export default class Parser {
     const { argv } = yargs(hideBin(process.argv))
       .strict()
       .scriptName('zeus')
-      .usage('Usage: $0 [command]')
+      .usage('Usage: $0 <command> [args]')
       .command(
         '$0',
         'the default command 等同于 <zeus create>',
@@ -33,7 +32,7 @@ export default class Parser {
       )
       .alias('h', 'help')
       .command({
-        command: 'create',
+        command: 'create [template]',
         describe: '初始化项目模板',
         builder: (yargs) => this.pluginMap.get('create').getOptions(yargs),
         handler: (argv) => this.pluginMap.get('create').handler(argv),

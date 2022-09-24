@@ -1,5 +1,12 @@
 {
-  "extends": [
-      "eslint-config-psfe"
-  ]
+  "extends": ["eslint-config-psfe"],
+  "settings": {
+    //eslint-import-resolver-alias
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".ts"] // ***2.解决引入问题
+      }
+    }
+  }
 }
