@@ -16,6 +16,7 @@ export default class Parser {
   constructor() {
     const createPlugin = new CreatePlugin();
     this.pluginMap = new Map();
+
     this.pluginMap.set('create', createPlugin);
     this._parse();
   }
@@ -35,10 +36,7 @@ export default class Parser {
         command: 'create',
         describe: '初始化项目模板',
         builder: (yargs) => this.pluginMap.get('create').getOptions(yargs),
-        handler: async (argv) => {
-          console.log(argv, '$0');
-          // clean(argv?.path);
-        },
+        handler: (argv) => this.pluginMap.get('create').handler(argv),
       })
       .help();
   }

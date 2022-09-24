@@ -1,4 +1,5 @@
-import { DEBUG, getCommand, remove, showFiglet,execCommand } from '../utils/index';
+import { getCommand, remove, showFiglet, execCommand } from '../utils/index';
+import { DEBUG } from '../constant';
 import chalk from 'chalk';
 export default async (options) => {
   let debug = options.includes(DEBUG);

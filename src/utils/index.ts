@@ -2,15 +2,14 @@ import detect from '../plugins/detect';
 import figlet from 'figlet';
 import chalk from 'chalk';
 import { spawn, exec } from 'child_process';
-export const DEBUG = '?';
-export const LOCAL_PATH = '.zeus/bolierplates';
 
-export function execCommand(command: string): Promise<string> {
+export function execCommand(command: string, cwd?: string): Promise<string> {
   return new Promise(() => {
     const commands = command.split(' ');
     spawn(commands[0], commands.slice(1), {
       stdio: 'inherit',
       shell: process.platform === 'win32',
+      cwd,
     });
   });
 }

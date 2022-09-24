@@ -1,5 +1,6 @@
 import chalk from 'chalk';
-import { DEBUG, getCommand, spliceArr, execCommand } from '../../utils/index';
+import { getCommand, spliceArr, execCommand } from '../../utils/index';
+import { DEBUG } from '../../constant';
 export default class BasePlugin {
   // todo 引入HookMap  command->[fn.....]
   // 注册插件->解析参数->获取命令->执行命令
@@ -22,8 +23,13 @@ export default class BasePlugin {
   constructor(tag: string, options: string[]) {
     this.debug = options.includes(DEBUG);
     this.tag = tag;
+    this._validOptions(options);
     // this._start(debug, command, excludeDebugOption);
   }
+  /**
+   * 手动调用命令
+   * @param command 完整命令 :string
+   */
   updateCommand(command: string) {
     this._validOptions(command.split(' ').slice(3));
   }
@@ -42,6 +48,10 @@ export default class BasePlugin {
       process.exit(1);
     }
   }
+  /**
+   * 处理并设置可执行命令
+   * @param options 未处理的命令数组（带DEBUG）
+   */
   private _validOptions(options: string[]) {
     let excludeDebugOption = options.concat();
     if (this.debug) {
@@ -49,10 +59,10 @@ export default class BasePlugin {
     }
     this.excludeDebugOption = excludeDebugOption;
   }
-  private async _getCommand(command: string, excludeDebugOption: string[]) {
+  private async _getCommand(tag: string, excludeDebugOption: string[]) {
     if (this.customGetCommand) {
       return await this.customGetCommand(this.tag, this.excludeDebugOption);
-    } else return await getCommand(command, excludeDebugOption);
+    } else return await getCommand(tag, excludeDebugOption);
   }
   private async _executeCommand() {
     await execCommand(this.command);

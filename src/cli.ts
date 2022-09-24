@@ -1,6 +1,5 @@
 #! /usr/bin/env node
 
-import chalk from 'chalk';
 import Parser from './parser';
 import InitPlugin from './plugins/npm/initPlugin';
 import InstallPlugin from './plugins/npm/installPlugin';
@@ -16,9 +15,9 @@ const header = argv[0];
 const body = argv.slice(1);
 
 if (header == 'init') {
-  new InitPlugin(body);
+  new InitPlugin(body).exec();
 } else if (header == 'i') {
-  new InstallPlugin(body);
+  new InstallPlugin(body).exec();
 } else if (header == 'x') {
   execute(body);
 } else if (header == 'ui') {

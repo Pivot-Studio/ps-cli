@@ -111,5 +111,5 @@ export async function createProject(frame, name) {
   // 遍历生成模板
   traseverDir(sourceUrl, destUrl, name);
   // 下载依赖
-  install([]);
+  // install([]);
 }

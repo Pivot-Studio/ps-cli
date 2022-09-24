@@ -2,10 +2,16 @@ import BasePlugin from './basePlugin';
 import { spliceArr, getCommand } from '../../utils';
 export default class InstallPlugin extends BasePlugin {
   // 子命令Plugin通过以下形式在BasePlugin中进行挂载
+  /**
+   * 
+   * @param options 参数body 例如:
+   ```ts
+    zeus i typescript -D  ==> options = [i ,typescript ,-D]
+   ```
+   */
   constructor(options: string[]) {
     super('install', options);
     super.customGetCommand = this.childGetCommand;
-    super.start();
   }
   async childGetCommand(tag: string, excludeDebugOption: string[]) {
     let isFrozen = excludeDebugOption.includes('--frozen');
@@ -23,5 +29,8 @@ export default class InstallPlugin extends BasePlugin {
       // in the yarn command
       return await getCommand('add', excludeDebugOption);
     } else return await getCommand('install', excludeDebugOption);
+  }
+  exec(): void {
+    super.start();
   }
 }

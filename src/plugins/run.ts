@@ -1,13 +1,8 @@
-import {
-  DEBUG,
-  getCommand,
-  remove,
-  showFiglet,
-  execCommand,
-} from '../utils/index';
+import { getCommand, remove, showFiglet, execCommand } from '../utils/index';
 import detect from './detect';
 import chalk from 'chalk';
 import fs from 'fs';
+import { DEBUG } from '../constant';
 
 const startMap = ['serve', 'dev', 'start'];
 export default async (options) => {

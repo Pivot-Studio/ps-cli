@@ -1,12 +1,12 @@
 // import BasePlugin from './basePlugin';
+import { ArgumentsCamelCase } from 'yargs';
 import inquirer from 'inquirer';
 import { gitClone, gitPull } from '../utils/git';
 import { runningPrefixChalk } from '../utils/chalk';
-import { LOCAL_PATH } from '../utils';
+import { LOCAL_PATH } from '../constant';
 import fse from 'fs-extra';
 import path from 'path';
-import { cwd } from 'process';
-const TemplatePath = path.resolve(cwd(), LOCAL_PATH);
+import InstallPlugin from './npm/installPlugin';
 export default class CreatePlugin {
   getOptions(yargs) {
     return yargs
@@ -22,7 +22,7 @@ export default class CreatePlugin {
       })
       .usage('$0 [--react/--typescript]'); // 辅助指南，终端输出的可以看到
   }
-  async handler(argv) {
+  async handler(argv: ArgumentsCamelCase) {
     let { createTemplate } = await inquirer.prompt([
       {
         type: 'rawlist',
@@ -40,24 +40,29 @@ export default class CreatePlugin {
         ],
       },
     ]);
-    runningPrefixChalk('Start');
-    if (!fse.pathExistsSync(TemplatePath)) {
-      console.log(
-        await gitClone('https://github.com/Pivot-Studio/zeus-boilerplates.git')
+    runningPrefixChalk('Start', 'Templates pulling down......');
+    if (!fse.pathExistsSync(LOCAL_PATH)) {
+      await gitClone('https://github.com/Pivot-Studio/zeus-boilerplates.git');
+      runningPrefixChalk(
+        'Pulled',
+        'Templates are cloned from origin Repository'
       );
     } else {
-      console.log(await gitPull());
+      await gitPull();
+      runningPrefixChalk(
+        'Pulled',
+        'Templates are updated from origin Repository'
+      );
     }
     const templateMap = fse.readJsonSync(
-      path.resolve(TemplatePath, './map.json')
+      path.resolve(LOCAL_PATH, './map.json')
     );
     const targetPath = path.resolve(
       LOCAL_PATH,
       templateMap[createTemplate].path
     );
     fse.copySync(targetPath, './');
-    // todo 调用installPlugin
-    // 但是我该如何去调用呢？已经更新了updateCommand的方法了。 还有什么优化？
-    // 模板路径需要优化
+    // todo 单例模式~~
+    new InstallPlugin(argv._ as string[]).exec();
   }
 }
