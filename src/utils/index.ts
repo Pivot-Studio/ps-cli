@@ -1,8 +1,14 @@
-import detect from '../plugins/detect';
+import detect from './detect';
 import figlet from 'figlet';
 import chalk from 'chalk';
 import { spawn, exec } from 'child_process';
 
+/**
+ * stdio:'inherit' 继承父进程，没有返回值
+ * @param command 命令：string
+ * @param cwd 命令执行路径：string
+ * @returns 
+ */
 export function execCommand(command: string, cwd?: string): Promise<string> {
   return new Promise(() => {
     const commands = command.split(' ');
@@ -24,6 +30,7 @@ export function execCommandAsync(command: string): Promise<string> {
     });
   });
 }
+
 export async function getCommand(command, args) {
   const { Commands } = await detect();
   const c = Commands[command];

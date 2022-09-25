@@ -1,5 +1,5 @@
 import { getCommand, remove, showFiglet, execCommand } from '../utils/index';
-import detect from './detect';
+import detect from '../utils/detect';
 import chalk from 'chalk';
 import fs from 'fs';
 import { DEBUG } from '../constant';

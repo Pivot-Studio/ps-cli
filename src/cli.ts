@@ -33,5 +33,4 @@ if (header == 'init') {
   new Parser();
 } else {
   new Parser();
-  // console.warn(chalk.red('Wrong Command!'));
 }
