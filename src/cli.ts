@@ -1,37 +1,31 @@
 #! /usr/bin/env node
 
-import chalk from 'chalk';
-
-import init from './libs/init';
-import installPlugin from './libs/install';
-import execute from './libs/execute';
-import uninstall from './libs/uninstall';
-import update from './libs/update';
-import create from './libs/create';
-import run from './libs/run';
-import list from './libs/list';
-
+import Parser from './parser';
+import InitPlugin from './plugins/npm/initPlugin';
+import InstallPlugin from './plugins/npm/installPlugin';
+import ExecutePlugin from './plugins/npm/executePlugin';
+import UninstallPlugin from './plugins/npm/uninstallPlugin';
+import UpdatePlugin from './plugins/npm/updatePlugin';
+import RunPlugin from './plugins/npm/runPlugin';
+import ListPlugin from './plugins/npm/listPlugin';
 const argv = process.argv.slice(2);
-
 const header = argv[0];
 const body = argv.slice(1);
 
 if (header == 'init') {
-  init(body);
+  new InitPlugin(body).exec();
 } else if (header == 'i') {
-  new installPlugin(body);
+  new InstallPlugin(body).exec();
 } else if (header == 'x') {
-  execute(body);
+  new ExecutePlugin(body).exec();
 } else if (header == 'ui') {
-  uninstall(body);
+  new UninstallPlugin(body).exec();
 } else if (header == 'u') {
-  update(body);
+  new UpdatePlugin(body).exec();
 } else if (header == 'r') {
-  run(body);
+  new RunPlugin(body).exec();
 } else if (header == 'ls') {
-  list(body);
-} else if (header == 'create' || !header) {
-  create();
+  new ListPlugin(body).exec();
 } else {
-  console.warn(chalk.red('Wrong Command!'));
+  new Parser();
 }
