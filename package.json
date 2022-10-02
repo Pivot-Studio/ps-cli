@@ -23,15 +23,22 @@
     "es-dirname": "^0.1.0",
     "execa": "^6.1.0",
     "figlet": "^1.5.2",
+    "fs-extra": "^10.1.0",
     "inquirer": "^8.2.1",
-    "ora": "^5.4.1"
+    "ora": "^5.4.1",
+    "simple-git": "^3.14.1",
+    "yargs": "^17.5.1"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/inquirer": "^9.0.1",
     "@types/node": "^18.7.18",
+    "@types/yargs": "^17.0.12",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "eslint": "^8.23.0",
     "eslint-config-psfe": "^1.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.1",

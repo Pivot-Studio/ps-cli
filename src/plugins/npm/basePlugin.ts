@@ -1,11 +1,6 @@
 import chalk from 'chalk';
-import {
-  DEBUG,
-  getCommand,
-  spliceArr,
-  showFiglet,
-  execCommand,
-} from '../utils/index';
+import { getCommand, spliceArr, execCommand } from '../../utils/index';
+import { DEBUG } from '../../constant';
 export default class BasePlugin {
   // todo 引入HookMap  command->[fn.....]
   // 注册插件->解析参数->获取命令->执行命令
@@ -13,6 +8,9 @@ export default class BasePlugin {
   tag: string;
   debug: boolean;
   excludeDebugOption: string[];
+  /**
+   * 自定义获取命令方法：可以自定义最终输出的命令
+   */
   customGetCommand?: (
     tag: string,
     excludeDebugOption: string[]
@@ -22,19 +20,21 @@ export default class BasePlugin {
    * @param command 分发命令符号
    * @param options 参数body： zeus i typescript ? ==> [typescript, ?]
    */
-  constructor(tag: string, options: string[]) {
+  constructor(tag: string, options: string[] = []) {
     this.debug = options.includes(DEBUG);
     this.tag = tag;
-    const excludeDebugOption = [];
-    if (this.debug) {
-      excludeDebugOption.push(...spliceArr(options, DEBUG));
-    }
-    this.excludeDebugOption = excludeDebugOption;
+    this._validOptions(options);
     // this._start(debug, command, excludeDebugOption);
+  }
+  /**
+   * 手动调用命令
+   * @param command 完整命令 :string
+   */
+  updateCommand(command: string) {
+    this._validOptions(command.split(' ').slice(3));
   }
   async start() {
     this.command = await this._getCommand(this.tag, this.excludeDebugOption);
-
     // startHook(this.command)
     if (this.debug) {
       this._showDebugCommand();
@@ -48,10 +48,21 @@ export default class BasePlugin {
       process.exit(1);
     }
   }
-  private async _getCommand(command: string, excludeDebugOption: string[]) {
+  /**
+   * 处理并设置可执行命令
+   * @param options 未处理的命令数组（带DEBUG）
+   */
+  private _validOptions(options: string[]) {
+    let excludeDebugOption = options.concat();
+    if (this.debug) {
+      excludeDebugOption = spliceArr(excludeDebugOption, DEBUG);
+    }
+    this.excludeDebugOption = excludeDebugOption;
+  }
+  private async _getCommand(tag: string, excludeDebugOption: string[]) {
     if (this.customGetCommand) {
       return await this.customGetCommand(this.tag, this.excludeDebugOption);
-    } else return await getCommand(command, excludeDebugOption);
+    } else return await getCommand(tag, excludeDebugOption);
   }
   private async _executeCommand() {
     await execCommand(this.command);

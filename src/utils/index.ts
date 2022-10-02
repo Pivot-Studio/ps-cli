@@ -1,15 +1,21 @@
-import detect from '../libs/detect';
+import detect from './detect';
 import figlet from 'figlet';
 import chalk from 'chalk';
 import { spawn, exec } from 'child_process';
-export const DEBUG = '?';
 
-export function execCommand(command: string): Promise<string> {
+/**
+ * stdio:'inherit' 继承父进程，没有返回值
+ * @param command 命令：string
+ * @param cwd 命令执行路径：string
+ * @returns 
+ */
+export function execCommand(command: string, cwd?: string): Promise<string> {
   return new Promise(() => {
     const commands = command.split(' ');
     spawn(commands[0], commands.slice(1), {
       stdio: 'inherit',
       shell: process.platform === 'win32',
+      cwd,
     });
   });
 }
@@ -24,6 +30,7 @@ export function execCommandAsync(command: string): Promise<string> {
     });
   });
 }
+
 export async function getCommand(command, args) {
   const { Commands } = await detect();
   const c = Commands[command];
@@ -45,10 +52,12 @@ export function remove(arr, flag) {
 
 export function spliceArr<T>(arr: Array<T>, flag: T) {
   let index = arr.indexOf(flag);
+  const res = arr.concat();
   if (index > -1) {
-    return arr.filter((_, i) => i !== index);
+    return res.filter((_, i) => i !== index);
   }
-  return arr;
+
+  return res;
 }
 
 export function showFiglet(logo, finishText) {
