@@ -15,8 +15,9 @@ export default class Parser {
   pluginMap: Map<string, any>;
   constructor() {
     const createPlugin = new CreatePlugin();
-    this.pluginMap = new Map();
-    this.pluginMap.set('create', createPlugin);
+    const pluginMap = new Map();
+    pluginMap.set('create', createPlugin);
+    this.pluginMap = pluginMap;
     this._parse();
   }
   private _parse() {

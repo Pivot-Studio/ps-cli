@@ -93,6 +93,7 @@ export default class CreatePlugin {
       });
       this.yargsOption.choices.push(`${option.value}`);
     });
+    // console.log(this.yargsOption, this.promptOption);
   }
   private async _templatePrompt() {
     return await inquirer.prompt(this.promptOption);

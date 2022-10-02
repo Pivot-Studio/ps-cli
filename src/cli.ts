@@ -3,14 +3,12 @@
 import Parser from './parser';
 import InitPlugin from './plugins/npm/initPlugin';
 import InstallPlugin from './plugins/npm/installPlugin';
-import execute from './plugins/execute';
-import uninstall from './plugins/uninstall';
-import update from './plugins/update';
-// import create from './plugins/create';
-import run from './plugins/run';
-import list from './plugins/list';
+import ExecutePlugin from './plugins/npm/executePlugin';
+import UninstallPlugin from './plugins/npm/uninstallPlugin';
+import UpdatePlugin from './plugins/npm/updatePlugin';
+import RunPlugin from './plugins/npm/runPlugin';
+import ListPlugin from './plugins/npm/listPlugin';
 const argv = process.argv.slice(2);
-
 const header = argv[0];
 const body = argv.slice(1);
 
@@ -19,18 +17,15 @@ if (header == 'init') {
 } else if (header == 'i') {
   new InstallPlugin(body).exec();
 } else if (header == 'x') {
-  execute(body);
+  new ExecutePlugin(body).exec();
 } else if (header == 'ui') {
-  uninstall(body);
+  new UninstallPlugin(body).exec();
 } else if (header == 'u') {
-  update(body);
+  new UpdatePlugin(body).exec();
 } else if (header == 'r') {
-  run(body);
+  new RunPlugin(body).exec();
 } else if (header == 'ls') {
-  list(body);
-} else if (header == 'create' || !header) {
-  // create();
-  new Parser();
+  new ListPlugin(body).exec();
 } else {
   new Parser();
 }

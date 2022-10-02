@@ -1,8 +1,4 @@
-import inquirer, {
-  QuestionCollection,
-  DistinctChoice,
-  Answers,
-} from 'inquirer';
+import inquirer, { DistinctChoice } from 'inquirer';
 interface Question {
   type: string;
   name: string;
