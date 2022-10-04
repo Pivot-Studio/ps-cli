@@ -3,9 +3,9 @@ import { ArgumentsCamelCase, Argv } from 'yargs';
 import inquirer from 'inquirer';
 import fse from 'fs-extra';
 import path from 'path';
-import { gitClone, gitPull } from '@/utils/git';
+import { gitClone, gitPull } from '@/utils/git/git';
 import { runningPrefixChalk } from '@/utils/chalk';
-import { LOCAL_PATH } from '@/constant';
+import { LOCAL_TEMPLATE } from '@/constant';
 import { CreateOption } from '@/types/createPlugin';
 import InstallPlugin from '@/plugins/npm/installPlugin';
 
@@ -35,7 +35,7 @@ export default class CreatePlugin {
   async handler(argv: ArgumentsCamelCase) {
     const { template } = argv?.template ? argv : await this._templatePrompt();
     runningPrefixChalk('Start', 'Templates pulling down......');
-    if (!fse.pathExistsSync(LOCAL_PATH)) {
+    if (!fse.pathExistsSync(LOCAL_TEMPLATE)) {
       await gitClone('https://github.com/Pivot-Studio/zeus-boilerplates.git');
       runningPrefixChalk(
         'Pulled',
@@ -49,9 +49,9 @@ export default class CreatePlugin {
       );
     }
     const templateMap = fse.readJsonSync(
-      path.resolve(LOCAL_PATH, './map.json')
+      path.resolve(LOCAL_TEMPLATE, './map.json')
     );
-    const targetPath = path.resolve(LOCAL_PATH, templateMap[template].path);
+    const targetPath = path.resolve(LOCAL_TEMPLATE, templateMap[template].path);
     fse.copySync(targetPath, './');
     // todo 单例模式~~
     new InstallPlugin([]).exec();

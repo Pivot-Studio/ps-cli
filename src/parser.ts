@@ -8,6 +8,7 @@ import { hideBin } from 'yargs/helpers';
 // import update from './plugins/update';
 // import create from './plugins/create';
 import CreatePlugin from './plugins/createPlugin';
+import ClonePlugin from './plugins/clonePlugin';
 // import run from './plugins/run';
 // import list from './plugins/list';
 
@@ -15,8 +16,10 @@ export default class Parser {
   pluginMap: Map<string, any>;
   constructor() {
     const createPlugin = new CreatePlugin();
+    const clonePlugin = new ClonePlugin();
     const pluginMap = new Map();
     pluginMap.set('create', createPlugin);
+    pluginMap.set('clone', clonePlugin);
     this.pluginMap = pluginMap;
     this._parse();
   }
@@ -37,6 +40,12 @@ export default class Parser {
         describe: '初始化项目模板',
         builder: (yargs) => this.pluginMap.get('create').getOptions(yargs),
         handler: (argv) => this.pluginMap.get('create').handler(argv),
+      })
+      .command({
+        command: 'clone',
+        describe: '从github仓库上拉取项目',
+        builder: (yargs) => this.pluginMap.get('clone').getOptions(yargs),
+        handler: (argv) => this.pluginMap.get('clone').handler(argv),
       })
       .help();
   }
