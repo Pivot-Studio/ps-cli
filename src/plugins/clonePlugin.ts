@@ -2,7 +2,7 @@ import github from '@/utils/git/github';
 import inquirer from 'inquirer';
 import { cwd } from 'process';
 import { gitClone } from '@/utils/git/git';
-import { blueChalk, runningPrefixChalk } from '@/utils/chalk';
+import logger, { runningPrefixChalk } from '@/utils/logger';
 inquirer.registerPrompt('search-list', require('inquirer-search-list'));
 export default class CreatePlugin {
   promptOption: any;
@@ -15,8 +15,10 @@ export default class CreatePlugin {
   async handler() {
     // 获取用户信息&仓库
     // waiting...
+    logger.pending('正在获取用户Github身份...')
     const userInfo = await github.getAuth();
     const { data } = await github.getRepos(userInfo.login);
+    logger.success('获取用户Github信息成功！')
     const repos = data.map((repo) => ({
       name: `${repo.name}: ${repo.description}`,
       value: repo,
@@ -26,7 +28,7 @@ export default class CreatePlugin {
     await gitClone(repository.clone_url, cwd());
     runningPrefixChalk(
       'Cloned!',
-      `Your repository ${blueChalk(
+      `Your repository ${logger.blue(
         repository.name
       )} is cloned from origin Repository`
     );

@@ -4,7 +4,7 @@ import inquirer from 'inquirer';
 import fse from 'fs-extra';
 import path from 'path';
 import { gitClone, gitPull } from '@/utils/git/git';
-import { runningPrefixChalk } from '@/utils/chalk';
+import { runningPrefixChalk } from '@/utils/logger';
 import { LOCAL_TEMPLATE } from '@/constant';
 import { CreateOption } from '@/types/createPlugin';
 import InstallPlugin from '@/plugins/npm/installPlugin';

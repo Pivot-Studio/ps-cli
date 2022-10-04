@@ -20,15 +20,13 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "ejs": "^3.1.6",
-    "es-dirname": "^0.1.0",
-    "execa": "^6.1.0",
-    "figlet": "^1.5.2",
     "fs-extra": "^10.1.0",
     "inquirer": "^8.2.1",
     "inquirer-search-list": "^1.2.6",
     "node-localstorage": "^2.2.1",
     "octokit": "^2.0.7",
     "ora": "^5.4.1",
+    "signale": "^1.4.0",
     "simple-git": "^3.14.1",
     "yargs": "^17.5.1"
   },
@@ -36,6 +34,7 @@
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^9.0.1",
     "@types/node": "^18.7.18",
+    "@types/signale": "^1.4.4",
     "@types/yargs": "^17.0.12",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
@@ -48,7 +47,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1",
     "ttypescript": "^1.5.13",
-    "typescript": "^4.8.3",
+    "typescript": "^4.8.2",
     "typescript-transform-paths": "^3.3.1"
   }
 }

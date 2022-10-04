@@ -29,7 +29,7 @@ class GithubKit {
       auth = userAuth;
     }
     this.octokit = new Octokit({
-      auth,
+      auth: auth.trim(),
     });
     try {
       const { data } = await this._getUserInfo();

@@ -1,6 +1,4 @@
 import detect from './detect';
-import figlet from 'figlet';
-import chalk from 'chalk';
 import { spawn, exec } from 'child_process';
 
 /**
@@ -58,15 +56,4 @@ export function spliceArr<T>(arr: Array<T>, flag: T) {
   }
 
   return res;
-}
-
-export function showFiglet(logo, finishText) {
-  figlet(logo, function (err, data) {
-    if (err) {
-      console.dir(err);
-      return;
-    }
-    console.log(chalk.green(data));
-    console.log(chalk.cyan(finishText));
-  });
 }
