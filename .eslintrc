@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint-config-psfe"],
+  "extends": "eslint-config-psfe",
   "settings": {
     //eslint-import-resolver-alias
     "import/resolver": {

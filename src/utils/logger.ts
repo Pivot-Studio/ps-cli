@@ -18,6 +18,9 @@ class Logger {
   pending(message: string) {
     this.logger.pending(message);
   }
+  start(message: string) {
+    this.logger.start(message);
+  }
   success(message: string) {
     this.logger.success(message)
   }

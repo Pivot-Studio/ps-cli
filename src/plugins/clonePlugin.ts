@@ -15,10 +15,10 @@ export default class CreatePlugin {
   async handler() {
     // 获取用户信息&仓库
     // waiting...
-    logger.pending('正在获取用户Github身份...')
+    logger.pending('正在获取用户Github身份...');
     const userInfo = await github.getAuth();
     const { data } = await github.getRepos(userInfo.login);
-    logger.success('获取用户Github信息成功！')
+    logger.success('获取用户Github信息成功！');
     const repos = data.map((repo) => ({
       name: `${repo.name}: ${repo.description}`,
       value: repo,

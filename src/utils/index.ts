@@ -5,7 +5,7 @@ import { spawn, exec } from 'child_process';
  * stdio:'inherit' 继承父进程，没有返回值
  * @param command 命令：string
  * @param cwd 命令执行路径：string
- * @returns 
+ * @returns
  */
 export function execCommand(command: string, cwd?: string): Promise<string> {
   return new Promise(() => {

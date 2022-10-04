@@ -9,6 +9,7 @@ import { hideBin } from 'yargs/helpers';
 // import create from './plugins/create';
 import CreatePlugin from './plugins/createPlugin';
 import ClonePlugin from './plugins/clonePlugin';
+import PushPlugin from './plugins/pushPlugin';
 // import run from './plugins/run';
 // import list from './plugins/list';
 
@@ -17,9 +18,11 @@ export default class Parser {
   constructor() {
     const createPlugin = new CreatePlugin();
     const clonePlugin = new ClonePlugin();
+    const pushPlugin = new PushPlugin();
     const pluginMap = new Map();
     pluginMap.set('create', createPlugin);
     pluginMap.set('clone', clonePlugin);
+    pluginMap.set('push', pushPlugin);
     this.pluginMap = pluginMap;
     this._parse();
   }
@@ -46,6 +49,12 @@ export default class Parser {
         describe: '从github仓库上拉取项目',
         builder: (yargs) => this.pluginMap.get('clone').getOptions(yargs),
         handler: (argv) => this.pluginMap.get('clone').handler(argv),
+      })
+      .command({
+        command: 'push',
+        describe: '推送项目到远程仓库',
+        builder: (yargs) => this.pluginMap.get('push').getOptions(yargs),
+        handler: (argv) => this.pluginMap.get('push').handler(argv),
       })
       .help();
   }

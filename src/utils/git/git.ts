@@ -12,3 +12,7 @@ export const gitClone = async (
 export const gitPull = async () => {
   return await templateGit.pull('origin');
 };
+
+export const gitPush = async (commitMsg: string) => {
+  return await git.add('./*').commit(commitMsg).push('origin', 'master');
+}
