@@ -13,7 +13,7 @@ export const LOCAL_TEMPLATE = path.resolve(
 );
 export const LOCAL_STORAGE = path.resolve(
   process.env.HOME || process.env.USERPROFILE,
-  '.zeus'
+  '.zeus/zeus_storage'
 );
 export const LOCKS = {
   'pnpm-lock.yaml': 'pnpm',

@@ -1,6 +1,5 @@
-import { getUserInfo, getRepos } from '@/utils/git/github';
+import github from '@/utils/git/github';
 import inquirer from 'inquirer';
-import { CreateOption } from '@/types/createPlugin';
 import { cwd } from 'process';
 import { gitClone } from '@/utils/git/git';
 import { blueChalk, runningPrefixChalk } from '@/utils/chalk';
@@ -16,8 +15,8 @@ export default class CreatePlugin {
   async handler() {
     // 获取用户信息&仓库
     // waiting...
-    const { data: userInfo } = await getUserInfo();
-    const { data } = await getRepos(userInfo.login);
+    const userInfo = await github.getAuth();
+    const { data } = await github.getRepos(userInfo.login);
     const repos = data.map((repo) => ({
       name: `${repo.name}: ${repo.description}`,
       value: repo,

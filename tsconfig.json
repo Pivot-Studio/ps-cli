@@ -25,6 +25,7 @@
       }
     ]
   },
-  "include": ["./src"] //编译的文件夹
+  "include": ["./src"],//编译的文件夹,
+  "exclude":["node_modules"]
   // "files": ["./src/index.ts"]    //编译某一个文件
 }
