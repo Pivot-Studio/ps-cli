@@ -1,7 +1,7 @@
 import github from '@/utils/git/github';
 import inquirer from 'inquirer';
 import { cwd } from 'process';
-import { gitPush } from '@/utils/git/git';
+import { getGitConfig, gitPush } from '@/utils/git/git';
 import logger from '@/utils/logger';
 export default class PushPlugin {
   promptOption: any;
@@ -14,10 +14,23 @@ export default class PushPlugin {
   async handler() {
     logger.start('开始push......');
     const { commit_msg } = await this._templatePrompt('push');
-    await gitPush(commit_msg);
-    // todo 是否提mr
+    const res = await gitPush(commit_msg);
+    console.log(res);
+
     const { isMr } = await this._templatePrompt('mr');
-    console.log(isMr);
+    if(isMr){
+      // todo: 获取仓库名，发起mr
+      const url = await getGitConfig('url')
+      const repoNameFitler = /\/([\w\d]*)\.git$/
+      const userInfo = await github.getAuth()
+      console.log(userInfo);
+      
+      const mrOptions = {
+        owner: userInfo.login,
+        repo: 
+      }
+      await github.createMergeRequest(mrOptions)
+    }
   }
   private _templateOptions() {
     this.promptOption = {

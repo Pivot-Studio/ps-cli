@@ -6,7 +6,7 @@ import path from 'path';
 import { gitClone, gitPull } from '@/utils/git/git';
 import { runningPrefixChalk } from '@/utils/logger';
 import { LOCAL_TEMPLATE } from '@/constant';
-import { CreateOption } from '@/types/createPlugin';
+import { Option } from '@/types/plugin';
 import InstallPlugin from '@/plugins/npm/installPlugin';
 
 // todo 通用Plugin抽离
@@ -16,7 +16,7 @@ export default class CreatePlugin {
   /**
    * 用于自定义模板
    */
-  templateHandler?: (defaultTemplates: CreateOption[]) => CreateOption[];
+  templateHandler?: (defaultTemplates: Option[]) => Option[];
   constructor() {
     this._templateOptions();
   }
@@ -33,6 +33,8 @@ export default class CreatePlugin {
    * @param argv
    */
   async handler(argv: ArgumentsCamelCase) {
+    console.log(1);
+
     const { template } = argv?.template ? argv : await this._templatePrompt();
     runningPrefixChalk('Start', 'Templates pulling down......');
     if (!fse.pathExistsSync(LOCAL_TEMPLATE)) {
