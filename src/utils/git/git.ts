@@ -21,9 +21,12 @@ export const gitPush = async (commitMsg: string) => {
 };
 
 /**
-* 获取用户的git config
-*/
-export const getGitConfig = async (key:string) => {
- return await git.getConfig(key)
+ * 获取用户的git config
+ */
+export const getGitConfig = async (key: string) => {
+  return await git.getConfig(key);
+};
 
-}
+export const getCurrentBranch = async (options?: string[]) => {
+  return await git.branch(options);
+};

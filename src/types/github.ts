@@ -18,7 +18,7 @@ export interface PullRequestOptions{
   /**
    * The title of the new pull request
    **/
-  title?:string;
+  title:string;
   /**
    * The contents of the pull request.
    */

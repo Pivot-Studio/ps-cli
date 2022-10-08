@@ -52,7 +52,7 @@ export default class Parser {
       })
       .command({
         command: 'push',
-        describe: '推送项目到远程仓库',
+        describe: '推送项目到远程仓库以及创建MR',
         builder: (yargs) => this.pluginMap.get('push').getOptions(yargs),
         handler: (argv) => this.pluginMap.get('push').handler(argv),
       })

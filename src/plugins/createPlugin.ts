@@ -33,8 +33,6 @@ export default class CreatePlugin {
    * @param argv
    */
   async handler(argv: ArgumentsCamelCase) {
-    console.log(1);
-
     const { template } = argv?.template ? argv : await this._templatePrompt();
     runningPrefixChalk('Start', 'Templates pulling down......');
     if (!fse.pathExistsSync(LOCAL_TEMPLATE)) {
