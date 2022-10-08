@@ -11,6 +11,7 @@ export const LOCAL_TEMPLATE = path.resolve(
   process.env.HOME || process.env.USERPROFILE,
   '.zeus/bolierplates'
 );
+
 export const LOCAL_STORAGE = path.resolve(
   process.env.HOME || process.env.USERPROFILE,
   '.zeus/zeus_storage'

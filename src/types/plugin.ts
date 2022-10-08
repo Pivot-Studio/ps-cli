@@ -1,4 +1,4 @@
-export interface CreateOption {
+export interface Option {
   name: string;
   value: string;
   description: string;
