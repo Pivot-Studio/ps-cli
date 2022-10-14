@@ -18,7 +18,12 @@ export default class CreatePlugin {
    * 用于自定义模板
    */
   templateHandler?: (defaultTemplates: Option[]) => Option[];
-  constructor() {}
+  constructor() {
+    this.templateMap = fse.readJsonSync(
+      path.resolve(LOCAL_TEMPLATE, './map.json')
+    );
+    this._templateOptions();
+  }
   /**
    * yargs options configuration
    * @param yargs
@@ -32,14 +37,18 @@ export default class CreatePlugin {
    * @param argv
    */
   async handler(argv: ArgumentsCamelCase) {
-    runningPrefixChalk('Start', 'Templates pulling down......');
-    if (fse.readdirSync(LOCAL_TEMPLATE).length === 0) {
-      await gitClone('https://github.com/Pivot-Studio/zeus-boilerplates.git');
+    if (!fse.existsSync(LOCAL_TEMPLATE)) {
+      runningPrefixChalk('Start', 'Templates cloning down......');
+      await gitClone(
+        'https://github.com/Pivot-Studio/zeus-boilerplates.git',
+        LOCAL_TEMPLATE
+      );
       runningPrefixChalk(
         'Pulled',
         'Templates are cloned from origin Repository'
       );
     } else {
+      runningPrefixChalk('Start', 'Templates pulling down......');
       await gitPull();
       runningPrefixChalk(
         'Pulled',
@@ -89,7 +98,7 @@ export default class CreatePlugin {
       });
       this.yargsOption.choices.push(`${option.value}`);
     });
-    // console.log(this.yargsOption, this.promptOption);
+    // console.log(this.yargsOption);
   }
   private async _templatePrompt() {
     return await inquirer.prompt(this.promptOption);

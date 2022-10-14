@@ -1,18 +1,14 @@
-import path from 'path';
 import { cwd } from 'process';
 import { simpleGit, SimpleGit, CleanOptions } from 'simple-git';
 import { LOCAL_TEMPLATE } from '../../constant';
-import { ensureDirSync } from 'fs-extra';
 const commands = ['config', '--global', 'push.autoSetupRemote', 'true'];
 const git: SimpleGit = simpleGit().raw(commands).clean(CleanOptions.FORCE);
-ensureDirSync(LOCAL_TEMPLATE);
-const templateGit = simpleGit(LOCAL_TEMPLATE).clean(CleanOptions.FORCE);
-export const gitClone = async (
-  repo: string,
-  target = path.resolve(cwd(), LOCAL_TEMPLATE)
-) => await git.clone(repo, target);
+
+export const gitClone = async (repo: string, target = cwd()) =>
+  await git.clone(repo, target);
 
 export const gitPull = async () => {
+  const templateGit = simpleGit(LOCAL_TEMPLATE).clean(CleanOptions.FORCE);
   return await templateGit.pull('origin');
 };
 // todo: git config --global push.autoSetupRemote true
