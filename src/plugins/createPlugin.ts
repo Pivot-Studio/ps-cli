@@ -13,13 +13,12 @@ import InstallPlugin from '@/plugins/npm/installPlugin';
 export default class CreatePlugin {
   yargsOption: any;
   promptOption: any;
+  templateMap: any;
   /**
    * 用于自定义模板
    */
   templateHandler?: (defaultTemplates: Option[]) => Option[];
-  constructor() {
-    this._templateOptions();
-  }
+  constructor() {}
   /**
    * yargs options configuration
    * @param yargs
@@ -33,9 +32,8 @@ export default class CreatePlugin {
    * @param argv
    */
   async handler(argv: ArgumentsCamelCase) {
-    const { template } = argv?.template ? argv : await this._templatePrompt();
     runningPrefixChalk('Start', 'Templates pulling down......');
-    if (!fse.pathExistsSync(LOCAL_TEMPLATE)) {
+    if (fse.readdirSync(LOCAL_TEMPLATE).length === 0) {
       await gitClone('https://github.com/Pivot-Studio/zeus-boilerplates.git');
       runningPrefixChalk(
         'Pulled',
@@ -48,10 +46,15 @@ export default class CreatePlugin {
         'Templates are updated from origin Repository'
       );
     }
-    const templateMap = fse.readJsonSync(
+    this.templateMap = fse.readJsonSync(
       path.resolve(LOCAL_TEMPLATE, './map.json')
     );
-    const targetPath = path.resolve(LOCAL_TEMPLATE, templateMap[template].path);
+    this._templateOptions();
+    const { template } = argv?.template ? argv : await this._templatePrompt();
+    const targetPath = path.resolve(
+      LOCAL_TEMPLATE,
+      this.templateMap[template].path
+    );
     fse.copySync(targetPath, './');
     // todo 单例模式~~
     new InstallPlugin([]).exec();
@@ -60,18 +63,11 @@ export default class CreatePlugin {
    * 解析选项
    */
   private _templateOptions() {
-    let defaultTemplates = [
-      {
-        name: 'Typescript',
-        value: 'typescript',
-        description: 'typescript 项目模板',
-      },
-      {
-        name: 'React',
-        value: 'react',
-        description: 'React H5项目模板',
-      },
-    ];
+    let defaultTemplates = Object.keys(this.templateMap).map((t) => ({
+      name: t,
+      value: t,
+      description: this.templateMap[t].description,
+    }));
     if (this.templateHandler) {
       defaultTemplates = this.templateHandler(defaultTemplates);
     }
