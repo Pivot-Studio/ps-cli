@@ -16,7 +16,7 @@ import PushPlugin from './plugins/pushPlugin';
 export default class Parser {
   pluginMap: Map<string, any>;
   constructor() {
-    const createPlugin = new CreatePlugin();
+    const createPlugin = CreatePlugin;
     const clonePlugin = new ClonePlugin();
     const pushPlugin = new PushPlugin();
     const pluginMap = new Map();
@@ -31,18 +31,18 @@ export default class Parser {
       .strict()
       .scriptName('zeus')
       .usage('Usage: $0 <command> [args]')
-      .command(
-        '$0',
-        'the default command 等同于 <zeus create>',
-        (yargs) => this.pluginMap.get('create').getOptions(yargs),
-        (argv) => this.pluginMap.get('create').handler(argv)
-      )
-      .alias('h', 'help')
+      // .command(
+      //   '$0',
+      //   'the default command 等同于 <zeus create>',
+      //   (yargs) => new (this.pluginMap.get('create'))().getOptions(yargs),
+      //   (argv) => new (this.pluginMap.get('create'))().handler(argv)
+      // )
       .command({
         command: 'create [template]',
         describe: '初始化项目模板',
-        builder: (yargs) => this.pluginMap.get('create').getOptions(yargs),
-        handler: (argv) => this.pluginMap.get('create').handler(argv),
+        builder: (yargs) =>
+          new (this.pluginMap.get('create'))().getOptions(yargs),
+        handler: (argv) => new (this.pluginMap.get('create'))().handler(argv),
       })
       .command({
         command: 'clone',
@@ -56,6 +56,7 @@ export default class Parser {
         builder: (yargs) => this.pluginMap.get('push').getOptions(yargs),
         handler: (argv) => this.pluginMap.get('push').handler(argv),
       })
+      .alias('-h', '--help')
       .help();
   }
 }

@@ -6,7 +6,6 @@ import path from 'path';
 import { gitClone, gitPull } from '@/utils/git/git';
 import { runningPrefixChalk } from '@/utils/logger';
 import { LOCAL_TEMPLATE } from '@/constant';
-import { Option } from '@/types/plugin';
 import InstallPlugin from '@/plugins/npm/installPlugin';
 
 // todo 通用Plugin抽离
@@ -14,15 +13,9 @@ export default class CreatePlugin {
   yargsOption: any;
   promptOption: any;
   templateMap: any;
-  /**
-   * 用于自定义模板
-   */
-  templateHandler?: (defaultTemplates: Option[]) => Option[];
+
   constructor() {
-    this.templateMap = fse.readJsonSync(
-      path.resolve(LOCAL_TEMPLATE, './map.json')
-    );
-    this._templateOptions();
+    this._updateTemplate();
   }
   /**
    * yargs options configuration
@@ -37,6 +30,16 @@ export default class CreatePlugin {
    * @param argv
    */
   async handler(argv: ArgumentsCamelCase) {
+    const { template } = argv?.template ? argv : await this._templatePrompt();
+    const targetPath = path.resolve(
+      LOCAL_TEMPLATE,
+      this.templateMap[template].path
+    );
+    fse.copySync(targetPath, './');
+    // todo 单例模式~~
+    new InstallPlugin([]).exec();
+  }
+  async _updateTemplate() {
     if (!fse.existsSync(LOCAL_TEMPLATE)) {
       runningPrefixChalk('Start', 'Templates cloning down......');
       await gitClone(
@@ -59,14 +62,6 @@ export default class CreatePlugin {
       path.resolve(LOCAL_TEMPLATE, './map.json')
     );
     this._templateOptions();
-    const { template } = argv?.template ? argv : await this._templatePrompt();
-    const targetPath = path.resolve(
-      LOCAL_TEMPLATE,
-      this.templateMap[template].path
-    );
-    fse.copySync(targetPath, './');
-    // todo 单例模式~~
-    new InstallPlugin([]).exec();
   }
   /**
    * 解析选项
@@ -77,12 +72,11 @@ export default class CreatePlugin {
       value: t,
       description: this.templateMap[t].description,
     }));
-    if (this.templateHandler) {
-      defaultTemplates = this.templateHandler(defaultTemplates);
-    }
+
     this.yargsOption = {
       choices: [],
     };
+
     this.promptOption = [
       {
         type: 'rawlist',
@@ -91,6 +85,7 @@ export default class CreatePlugin {
         choices: [],
       },
     ];
+
     defaultTemplates.forEach((option) => {
       this.promptOption[0].choices.push({
         name: option.name,
