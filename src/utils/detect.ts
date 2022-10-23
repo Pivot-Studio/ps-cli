@@ -49,7 +49,7 @@ function findUp(prev, search, lock) {
   if (prev == search) return;
   let files = fs.readdirSync(search);
   if (files.includes(lock)) {
-    const LocksPath = path.join(search, 'packageon');
+    const LocksPath = path.join(search, 'package.json');
     return { lock, LocksPath };
   } else {
     // eslint-disable-next-line no-param-reassign
