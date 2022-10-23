@@ -32,7 +32,7 @@ class GithubKit {
       const { auth: userAuth } = await this._inputToken();
       auth = userAuth;
     }
-    if(!this.octokit){
+    if (!this.octokit) {
       this.octokit = new Octokit({
         auth: auth.trim(),
       });
@@ -48,24 +48,30 @@ class GithubKit {
   /**
    * Compare: https://docs.github.com/en/rest/reference/users#get-the-authenticated-user
    * 获取用户所有的仓库
-   * @param username 
-   * @returns 
+   * @param username
+   * @returns
    */
-  async getRepos(username: string) {
+  async getReposForUser(username: string) {
     return await this.octokit.rest.repos.listForUser({
       username,
     });
   }
-  /**
-   * 创建一个Pull Request
-   * @param options 
-   * @returns 
-   */
-  async createMergeRequest(options: PullRequestOptions){
-    return await this.octokit.rest.pulls.create({
-      ...options
+  async getReposForOrg(org: string) {
+    return await this.octokit.rest.repos.listForOrg({
+      org,
+      per_page: 30,
+      sort: 'pushed',
     });
   }
-  
+  /**
+   * 创建一个Pull Request
+   * @param options
+   * @returns
+   */
+  async createMergeRequest(options: PullRequestOptions) {
+    return await this.octokit.rest.pulls.create({
+      ...options,
+    });
+  }
 }
 export default new GithubKit();

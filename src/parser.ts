@@ -40,7 +40,7 @@ export default class Parser {
         handler: (argv) => this.pluginMap.get('create').handler(argv),
       })
       .command({
-        command: 'clone',
+        command: 'clone [url]',
         describe: '从github仓库上拉取项目',
         builder: (yargs) => this.pluginMap.get('clone').getOptions(yargs),
         handler: (argv) => this.pluginMap.get('clone').handler(argv),
