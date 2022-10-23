@@ -27,16 +27,12 @@ export default class Parser {
     this._parse();
   }
   private _parse() {
-    const { argv } = yargs(hideBin(process.argv))
+    const originArgv =
+      hideBin(process.argv).length > 0 ? hideBin(process.argv) : ['-h'];
+    const { argv } = yargs(originArgv)
       .strict()
       .scriptName('zeus')
       .usage('Usage: $0 <command> [args]')
-      // .command(
-      //   '$0',
-      //   'the default command 等同于 <zeus create>',
-      //   (yargs) => new (this.pluginMap.get('create'))().getOptions(yargs),
-      //   (argv) => new (this.pluginMap.get('create'))().handler(argv)
-      // )
       .command({
         command: 'create [template]',
         describe: '初始化项目模板',
