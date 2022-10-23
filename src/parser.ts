@@ -16,7 +16,7 @@ import PushPlugin from './plugins/pushPlugin';
 export default class Parser {
   pluginMap: Map<string, any>;
   constructor() {
-    const createPlugin = CreatePlugin;
+    const createPlugin = new CreatePlugin();
     const clonePlugin = new ClonePlugin();
     const pushPlugin = new PushPlugin();
     const pluginMap = new Map();
@@ -36,9 +36,8 @@ export default class Parser {
       .command({
         command: 'create [template]',
         describe: '初始化项目模板',
-        builder: (yargs) =>
-          new (this.pluginMap.get('create'))().getOptions(yargs),
-        handler: (argv) => new (this.pluginMap.get('create'))().handler(argv),
+        builder: (yargs) => this.pluginMap.get('create').getOptions(yargs),
+        handler: (argv) => this.pluginMap.get('create').handler(argv),
       })
       .command({
         command: 'clone',

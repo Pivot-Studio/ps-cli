@@ -13,16 +13,16 @@ export default class CreatePlugin {
   yargsOption: any;
   promptOption: any;
   templateMap: any;
-
   constructor() {
-    this._updateTemplate();
+    // this._updateTemplate();
   }
   /**
    * yargs options configuration
    * @param yargs
    * @returns Argv
    */
-  getOptions(yargs: Argv): Argv {
+  async getOptions(yargs: Argv): Promise<Argv> {
+    await this._updateTemplate();
     return yargs.positional('template', this.yargsOption);
   }
   /**
