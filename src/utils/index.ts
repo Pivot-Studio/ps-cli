@@ -56,3 +56,9 @@ export function spliceArr<T>(arr: Array<T>, flag: T) {
 
   return res;
 }
+
+export function getLastElm(arr: any[]) {
+  const len = arr.length;
+  if (len === 0) return null;
+  return arr[len - 1];
+}
