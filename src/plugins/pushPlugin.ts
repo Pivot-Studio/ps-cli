@@ -2,6 +2,8 @@ import github from '@/utils/git/github';
 import inquirer from 'inquirer';
 import { getGitConfig, gitPush, getCurrentBranch } from '@/utils/git/git';
 import logger from '@/utils/logger';
+import { execCommandAsync } from '@/utils';
+import { URL_START } from '@/constant';
 export default class PushPlugin {
   promptOption: any;
   constructor() {
@@ -48,6 +50,7 @@ export default class PushPlugin {
       logger.blue(
         `你修改了${data.changed_files}个文件，一共有${data.commits}次commits记录～`
       );
+      execCommandAsync(`${URL_START} ${data.html_url}`);
     }
   }
   private _templateOptions() {

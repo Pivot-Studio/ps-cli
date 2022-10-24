@@ -1,17 +1,9 @@
 // import chalk from 'chalk';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-// import InitPlugin from './plugins/init';
-// import InstallPlugin from './plugins/install';
-// import execute from './plugins/execute';
-// import uninstall from './plugins/uninstall';
-// import update from './plugins/update';
-// import create from './plugins/create';
 import CreatePlugin from './plugins/createPlugin';
 import ClonePlugin from './plugins/clonePlugin';
 import PushPlugin from './plugins/pushPlugin';
-// import run from './plugins/run';
-// import list from './plugins/list';
 
 export default class Parser {
   pluginMap: Map<string, any>;
