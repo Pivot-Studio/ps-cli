@@ -22,7 +22,7 @@ export default class UpdatePlugin extends BasePlugin {
       );
     } else return await getCommand('upgrade', excludeDebugOption);
   }
-  exec(): void {
+  handler(): void {
     super.start();
   }
 }

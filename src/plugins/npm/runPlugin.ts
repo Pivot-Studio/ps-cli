@@ -27,7 +27,7 @@ export default class RunPlugin extends BasePlugin {
     }
     return await getCommand('run', excludeDebugOption);
   }
-  exec(): void {
+  handler(): void {
     super.start();
   }
 }

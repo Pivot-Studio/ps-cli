@@ -1,4 +1,5 @@
 import BasePlugin from './basePlugin';
+import { Argv } from 'yargs';
 import { spliceArr, getCommand } from '../../utils';
 export default class InstallPlugin extends BasePlugin {
   // 子命令Plugin通过以下形式在BasePlugin中进行挂载
@@ -12,6 +13,9 @@ export default class InstallPlugin extends BasePlugin {
   constructor(options: string[]) {
     super('install', options);
     super.customGetCommand = this.childGetCommand;
+  }
+  getOptions(yargs:Argv):Argv {
+    return yargs.positional('DEBUG', { choices: ['?'] });
   }
   async childGetCommand(tag: string, excludeDebugOption: string[]) {
     let isFrozen = excludeDebugOption.includes('--frozen');
@@ -30,7 +34,7 @@ export default class InstallPlugin extends BasePlugin {
       return await getCommand('add', excludeDebugOption);
     } else return await getCommand('install', excludeDebugOption);
   }
-  exec(): void {
+  handler(): void {
     super.start();
   }
 }
