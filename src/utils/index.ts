@@ -1,6 +1,5 @@
 import detect from './detect';
 import { spawn, exec } from 'child_process';
-
 /**
  * stdio:'inherit' 继承父进程，没有返回值
  * @param command 命令：string
@@ -56,4 +55,10 @@ export function spliceArr<T>(arr: Array<T>, flag: T) {
   }
 
   return res;
+}
+
+export function getLastElm(arr: any[]) {
+  const len = arr.length;
+  if (len === 0) return null;
+  return arr[len - 1];
 }

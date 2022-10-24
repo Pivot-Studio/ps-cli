@@ -11,8 +11,6 @@ import ListPlugin from './plugins/npm/listPlugin';
 import CreatePlugin from './plugins/createPlugin';
 import ClonePlugin from './plugins/clonePlugin';
 import PushPlugin from './plugins/pushPlugin';
-// import run from './plugins/run';
-// import list from './plugins/list';
 
 export default class Parser {
   pluginMap: Map<string, any>;

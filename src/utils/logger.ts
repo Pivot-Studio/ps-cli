@@ -30,6 +30,11 @@ class Logger {
   blue(message: string) {
     chalk.hex('#4172b8')(message);
   }
+  banner(message: string) {
+    console.log(`== ${'>>'.repeat(message.length)}`);
+    console.log(`== ${chalk.cyan(message)}`);
+    console.log(`== ${'>>'.repeat(message.length)}`);
+  }
 }
 export default new Logger();
 export const runningPrefixChalk = (prefix: string, content?: string) => {

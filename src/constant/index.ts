@@ -7,6 +7,14 @@ function npmRun(packageManager: string) {
   };
 }
 export const DEBUG = '?';
+
+export const URL_START =
+  process.platform == 'darwin'
+    ? 'open'
+    : process.platform == 'win32'
+      ? 'start'
+      : 'xdg-open';
+
 export const LOCAL_TEMPLATE = path.resolve(
   process.env.HOME || process.env.USERPROFILE,
   '.zeus/bolierplates'
