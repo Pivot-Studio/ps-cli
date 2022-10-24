@@ -16,7 +16,7 @@ export default class UninstallPlugin extends BasePlugin {
       );
     } else return await getCommand('uninstall', excludeDebugOption);
   }
-  handler(): void {
+  exec(): void {
     super.start();
   }
 }

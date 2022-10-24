@@ -14,7 +14,7 @@ export default class ListPlugin extends BasePlugin {
       return await getCommand('list', excludeDebugOption);
     }
   }
-  handler(): void {
+  exec(): void {
     super.start();
   }
 }

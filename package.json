@@ -22,7 +22,6 @@
     "fs-extra": "^10.1.0",
     "inquirer": "^8.2.1",
     "inquirer-search-list": "^1.2.6",
-    "install": "^0.13.0",
     "node-localstorage": "^2.2.1",
     "octokit": "^2.0.7",
     "ora": "^5.4.1",

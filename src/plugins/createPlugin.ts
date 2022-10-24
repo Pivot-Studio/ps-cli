@@ -22,8 +22,7 @@ export default class CreatePlugin {
    * @returns Argv
    */
   async getOptions(yargs: Argv): Promise<Argv> {
-    // await this._updateTemplate();
-    //会报错，tobeFixed
+    await this._updateTemplate();
     return yargs.positional('template', this.yargsOption);
   }
   /**
@@ -38,7 +37,7 @@ export default class CreatePlugin {
     );
     fse.copySync(targetPath, './');
     // todo 单例模式~~
-    new InstallPlugin([]).handler();
+    new InstallPlugin([]).exec();
   }
   async _updateTemplate() {
     if (!fse.existsSync(LOCAL_TEMPLATE)) {
