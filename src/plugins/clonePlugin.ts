@@ -5,7 +5,7 @@ import { gitClone } from '@/utils/git/git';
 import logger, { runningPrefixChalk } from '@/utils/logger';
 import { Arguments } from 'yargs';
 inquirer.registerPrompt('search-list', require('inquirer-search-list'));
-export default class CreatePlugin {
+export default class ClonePlugin {
   promptOption: any;
   constructor() {
     this._templateOptions();
@@ -14,6 +14,7 @@ export default class CreatePlugin {
     return {};
   }
   async handler(argv: Arguments<{ url: string }>) {
+    console.log(argv)
     // 获取用户信息&仓库
     // waiting...
     logger.pending('正在获取用户Github身份...');

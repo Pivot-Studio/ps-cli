@@ -3,7 +3,7 @@ export default class ExecutePlugin extends BasePlugin {
   constructor(options: string[]) {
     super('execute', options);
   }
-  exec(): void {
+  handler(): void {
     super.start();
   }
 }
