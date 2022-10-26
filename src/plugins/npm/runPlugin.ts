@@ -1,4 +1,5 @@
 import { getCommand } from '../../utils/index';
+import { Argv } from 'yargs';
 import detect from '../../utils/detect';
 import fs from 'fs';
 import BasePlugin from './basePlugin';
@@ -26,6 +27,17 @@ export default class RunPlugin extends BasePlugin {
       }
     }
     return await getCommand('run', excludeDebugOption);
+  }
+  getOptions(yargs: Argv): Argv {
+    return yargs
+      .positional('script', {
+        describe: '指令内容',
+      })
+      .positional('DEBUG', {
+        choices: ['?'],
+        describe: '打印出最终转化的命令',
+      })
+      .alias('h', 'help');
   }
   handler(): void {
     super.start();

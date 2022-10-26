@@ -1,4 +1,5 @@
 import { getCommand, spliceArr } from '../../utils/index';
+import { Argv } from 'yargs';
 import BasePlugin from './basePlugin';
 
 export default class ListPlugin extends BasePlugin {
@@ -13,6 +14,19 @@ export default class ListPlugin extends BasePlugin {
     } else {
       return await getCommand('list', excludeDebugOption);
     }
+  }
+  getOptions(yargs: Argv): Argv {
+    return yargs
+      .positional('DEBUG', { choices: ['?'] })
+      //与下面的-v可选性冲突，所以false掉
+      .version(false)
+      .options({
+        v: {
+          alias: 'version',
+          describe: '显示依赖包版本',
+        },
+      })
+      .alias('h', 'help');
   }
   handler(): void {
     super.start();

@@ -1,4 +1,5 @@
 import { getCommand, spliceArr } from '../../utils/index';
+import { Argv } from 'yargs';
 import BasePlugin from './basePlugin';
 
 export default class UninstallPlugin extends BasePlugin {
@@ -7,7 +8,9 @@ export default class UninstallPlugin extends BasePlugin {
     super.customGetCommand = this.childGetCommand;
   }
   async childGetCommand(tag: string, excludeDebugOption: string[]) {
-    let isGlobal = excludeDebugOption.includes('-g');
+    let isGlobal =
+      excludeDebugOption.includes('-g') ||
+      excludeDebugOption.includes('--global');
 
     if (isGlobal) {
       return await getCommand(
@@ -15,6 +18,20 @@ export default class UninstallPlugin extends BasePlugin {
         spliceArr(excludeDebugOption, '-g')
       );
     } else return await getCommand('uninstall', excludeDebugOption);
+  }
+  getOptions(yargs: Argv): Argv {
+    return yargs
+      .positional('foo', {
+        describe: '依赖包名称',
+      })
+      .positional('DEBUG', { choices: ['?'] })
+      .options({
+        g: {
+          alias: 'global',
+          describe: '卸载全局依赖包',
+        },
+      })
+      .alias('h', 'help');
   }
   handler(): void {
     super.start();

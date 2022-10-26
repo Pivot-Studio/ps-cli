@@ -9,6 +9,9 @@ export default class InitPlugin extends BasePlugin {
     super.start();
   }
   getOptions(yargs: Argv): Argv {
-    return yargs.positional('DEBUG', { choices: ['?'] });
+    return yargs.positional('DEBUG', {
+      choices: ['?'],
+      describe: '打印最终转化的命令',
+    });
   }
 }

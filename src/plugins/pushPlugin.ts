@@ -4,13 +4,14 @@ import { getGitConfig, gitPush, getCurrentBranch } from '@/utils/git/git';
 import logger from '@/utils/logger';
 import { execCommandAsync } from '@/utils';
 import { URL_START } from '@/constant';
+import { Argv } from 'yargs';
 export default class PushPlugin {
   promptOption: any;
   constructor() {
     this._templateOptions();
   }
-  getOptions() {
-    return {};
+  getOptions(yargs: Argv): Argv {
+    return yargs.alias('h', 'help');
   }
   async handler() {
     logger.start('开始push......');

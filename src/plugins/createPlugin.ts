@@ -23,7 +23,6 @@ export default class CreatePlugin {
    */
   async getOptions(yargs: Argv): Promise<Argv> {
     await this._updateTemplate();
-    //会报错，tobeFixed
     return yargs.positional('template', this.yargsOption);
   }
   /**
