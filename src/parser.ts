@@ -87,7 +87,7 @@ export default class Parser {
         //原来这里因为有个map.get()避过了类型检查，实际上getOptions()还没写，实际返回值不符合类型规范，写了再取消注释
         // builder: () => new PushPlugin.getOptions(),
         //能跑，类型检测tobefixed
-        handler: (argv) => new ClonePlugin().handler(argv),cl
+        handler: (argv) => new ClonePlugin().handler(argv),
       })
       .command({
         command: 'push',

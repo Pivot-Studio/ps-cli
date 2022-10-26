@@ -6,7 +6,6 @@ export default class InitPlugin extends BasePlugin {
     super('init', options);
   }
   handler(): void {
-    console.log("command")
     super.start();
   }
   getOptions(yargs: Argv): Argv {
