@@ -1,5 +1,8 @@
 import BasePlugin from './basePlugin';
 import { Argv } from 'yargs';
+import { singleton } from '@/utils/singleton';
+
+@singleton
 export default class ExecutePlugin extends BasePlugin {
   constructor(options: string[]) {
     super('execute', options);

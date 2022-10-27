@@ -6,6 +6,9 @@ import logger, { runningPrefixChalk } from '@/utils/logger';
 import { Arguments } from 'yargs';
 import { Argv } from 'yargs';
 inquirer.registerPrompt('search-list', require('inquirer-search-list'));
+import { singleton } from '@/utils/singleton';
+
+@singleton
 export default class ClonePlugin {
   promptOption: any;
   constructor() {
@@ -17,7 +20,6 @@ export default class ClonePlugin {
     }).alias('h','help');
   }
   async handler(argv: Arguments<{ url?: string }>) {
-    console.log(argv)
     // 获取用户信息&仓库
     // waiting...
     logger.pending('正在获取用户Github身份...');

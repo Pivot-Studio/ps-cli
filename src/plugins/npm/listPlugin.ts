@@ -1,7 +1,9 @@
 import { getCommand, spliceArr } from '../../utils/index';
 import { Argv } from 'yargs';
 import BasePlugin from './basePlugin';
+import { singleton } from '@/utils/singleton';
 
+@singleton
 export default class ListPlugin extends BasePlugin {
   constructor(options: string[]) {
     super('list', options);
@@ -29,6 +31,7 @@ export default class ListPlugin extends BasePlugin {
       .alias('h', 'help');
   }
   handler(): void {
+    console.log(new Date())
     super.start();
   }
 }

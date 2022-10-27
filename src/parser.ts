@@ -36,44 +36,44 @@ export default class Parser {
       .command({
         command: 'init [DEBUG]',
         describe: 'npm/yarn/pnpm init',
-        builder: (yargs) => new InitPlugin().getOptions(yargs),
-        handler: () => new InitPlugin(bodyArgv).handler(),
+        builder: (yargs) => InitPlugin.getInstance(bodyArgv).getOptions(yargs),
+        handler: () => InitPlugin.getInstance(bodyArgv).handler(),
       })
       .command({
         command: ['install [package] [DEBUG]', 'i'],
         describe: 'npm/yarn/pnpm install/add [package]',
-        builder: (yargs) => new InstallPlugin(bodyArgv).getOptions(yargs),
-        handler: () => new InstallPlugin(bodyArgv).handler(),
+        builder: (yargs) => InstallPlugin.getInstance(bodyArgv).getOptions(yargs),
+        handler: () => InstallPlugin.getInstance(bodyArgv).handler(),
       })
       .command({
         command: ['update [package] [DEBUG]','u'],
         describe: 'npm/yarn/pnpm update/upgrade [package]',
-        builder: (yargs) => new UpdatePlugin(bodyArgv).getOptions(yargs),
-        handler: () => new UpdatePlugin(bodyArgv).handler(),
+        builder: (yargs) => UpdatePlugin.getInstance(bodyArgv).getOptions(yargs),
+        handler: () => UpdatePlugin.getInstance(bodyArgv).handler(),
       })
       .command({
         command: ['uninstall [package] [DEBUG]','ui'],
         describe: 'npm/yarn/pnpm uninstall [package]',
-        builder: (yargs) => new UninstallPlugin(bodyArgv).getOptions(yargs),
-        handler: () => new UninstallPlugin(bodyArgv).handler(),
+        builder: (yargs) => UninstallPlugin.getInstance(bodyArgv).getOptions(yargs),
+        handler: () => UninstallPlugin.getInstance(bodyArgv).handler(),
       })
       .command({
         command: ['ls [package] [DEBUG]','list'],
         describe: 'npm/yarn/pnpm list [package]',
-        builder: (yargs) => new ListPlugin(bodyArgv).getOptions(yargs),
-        handler: () => new ListPlugin(bodyArgv).handler(),
+        builder: (yargs) => ListPlugin.getInstance(bodyArgv).getOptions(yargs),
+        handler: () => ListPlugin.getInstance(bodyArgv).handler(),
       })
       .command({
         command: ['run [script] [DEBUG]','r'],
         describe: 'npm/yarn/pnpm run [script]',
-        builder: (yargs) => new RunPlugin(bodyArgv).getOptions(yargs),
-        handler: () => new RunPlugin(bodyArgv).handler(),
+        builder: (yargs) => RunPlugin.getInstance(bodyArgv).getOptions(yargs),
+        handler: () => RunPlugin.getInstance(bodyArgv).handler(),
       })
       .command({
         command: 'x [package] [DEBUG]',
         describe: 'npx/yarn dlx/pnpm dlx [package]',
-        builder: (yargs) => new ExecutePlugin(bodyArgv).getOptions(yargs),
-        handler: () => new ExecutePlugin(bodyArgv).handler(),
+        builder: (yargs) => ExecutePlugin.getInstance(bodyArgv).getOptions(yargs),
+        handler: () => ExecutePlugin.getInstance(bodyArgv).handler(),
       })
       .command({
         command: 'create [template]',

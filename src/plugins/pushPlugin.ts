@@ -5,6 +5,9 @@ import logger from '@/utils/logger';
 import { execCommandAsync } from '@/utils';
 import { URL_START } from '@/constant';
 import { Argv } from 'yargs';
+import { singleton } from '@/utils/singleton';
+
+@singleton
 export default class PushPlugin {
   promptOption: any;
   constructor() {

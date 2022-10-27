@@ -3,9 +3,10 @@ import { Argv } from 'yargs';
 import detect from '../../utils/detect';
 import fs from 'fs';
 import BasePlugin from './basePlugin';
-
 const startMap = ['serve', 'dev', 'start'];
+import { singleton } from '@/utils/singleton';
 
+@singleton
 export default class RunPlugin extends BasePlugin {
   constructor(options: string[]) {
     super('run', options);

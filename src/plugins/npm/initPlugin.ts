@@ -1,5 +1,8 @@
 import BasePlugin from './basePlugin';
 import { Argv } from 'yargs';
+import { singleton } from '@/utils/singleton';
+
+@singleton
 export default class InitPlugin extends BasePlugin {
   // 子命令Plugin通过以下形式在BasePlugin中进行挂载
   constructor(options?: string[]) {

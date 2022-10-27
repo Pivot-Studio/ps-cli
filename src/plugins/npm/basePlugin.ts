@@ -1,6 +1,9 @@
 import chalk from 'chalk';
 import { getCommand, spliceArr, execCommand } from '../../utils/index';
 import { DEBUG } from '../../constant';
+import { singleton } from '@/utils/singleton';
+
+@singleton
 export default class BasePlugin {
   // todo 引入HookMap  command->[fn.....]
   // 注册插件->解析参数->获取命令->执行命令
@@ -70,5 +73,9 @@ export default class BasePlugin {
   }
   private _showDebugCommand() {
     console.log(this.command);
+  }
+  //singleton装饰器里会具体化getInstance方法
+  static getInstance(options?:string[]):any {
+
   }
 }

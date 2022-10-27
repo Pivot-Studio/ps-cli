@@ -7,8 +7,10 @@ import { gitClone, gitPull } from '@/utils/git/git';
 import { runningPrefixChalk } from '@/utils/logger';
 import { LOCAL_TEMPLATE } from '@/constant';
 import InstallPlugin from '@/plugins/npm/installPlugin';
+import { singleton } from '@/utils/singleton';
 
 // todo 通用Plugin抽离
+@singleton
 export default class CreatePlugin {
   yargsOption: any;
   promptOption: any;
