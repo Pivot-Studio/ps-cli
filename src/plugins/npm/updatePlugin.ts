@@ -23,7 +23,7 @@ export default class UpdatePlugin extends BasePlugin {
     } else return await getCommand('upgrade', excludeDebugOption);
   }
   getOptions(yargs:Argv):Argv {
-    return yargs.positional('foo', {
+    return yargs.positional('package', {
       describe: '依赖包名称',
     }).positional('DEBUG', {
       choices: ['?'],
@@ -36,6 +36,9 @@ export default class UpdatePlugin extends BasePlugin {
       'g': {
         alias:'global',
         describe:'更新全局依赖包'
+      },
+      'latest':{
+        describe:'忽略package.json里的限制更新依赖包至最新版本'
       }
     }).alias('h','help');
   }

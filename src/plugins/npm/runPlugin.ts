@@ -37,6 +37,9 @@ export default class RunPlugin extends BasePlugin {
         choices: ['?'],
         describe: '打印出最终转化的命令',
       })
+      .option('port', {
+        describe: '端口号设置',
+      })
       .alias('h', 'help');
   }
   handler(): void {

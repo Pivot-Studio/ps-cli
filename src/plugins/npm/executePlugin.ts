@@ -6,7 +6,7 @@ export default class ExecutePlugin extends BasePlugin {
   }
   getOptions(yargs: Argv): Argv {
     return yargs
-      .positional('foo', {
+      .positional('package', {
         describe: '模块名称',
       })
       .positional('DEBUG', {

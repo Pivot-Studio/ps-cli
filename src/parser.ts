@@ -39,40 +39,39 @@ export default class Parser {
         builder: (yargs) => new InitPlugin().getOptions(yargs),
         handler: () => new InitPlugin(bodyArgv).handler(),
       })
-      //数组的形式实现别名效果，第一个参数需写出参数，后面的为别名
       .command({
-        command: ['install [foo] [DEBUG]', 'i'],
-        describe: 'npm/yarn/pnpm install [foo]',
+        command: ['install [package] [DEBUG]', 'i'],
+        describe: 'npm/yarn/pnpm install/add [package]',
         builder: (yargs) => new InstallPlugin(bodyArgv).getOptions(yargs),
         handler: () => new InstallPlugin(bodyArgv).handler(),
       })
       .command({
-        command: ['update [foo] [DEBUG]','up','upgrade'],
-        describe: '更新依赖包',
+        command: ['update [package] [DEBUG]','u'],
+        describe: 'npm/yarn/pnpm update/upgrade [package]',
         builder: (yargs) => new UpdatePlugin(bodyArgv).getOptions(yargs),
         handler: () => new UpdatePlugin(bodyArgv).handler(),
       })
       .command({
-        command: ['uninstall [foo] [DEBUG]','un','rm','unlink'],
-        describe: '卸载依赖包',
+        command: ['uninstall [package] [DEBUG]','ui'],
+        describe: 'npm/yarn/pnpm uninstall [package]',
         builder: (yargs) => new UninstallPlugin(bodyArgv).getOptions(yargs),
         handler: () => new UninstallPlugin(bodyArgv).handler(),
       })
       .command({
-        command: ['ls [DEBUG]','list'],
-        describe: '列出已安装的依赖包',
+        command: ['ls [package] [DEBUG]','list'],
+        describe: 'npm/yarn/pnpm list [package]',
         builder: (yargs) => new ListPlugin(bodyArgv).getOptions(yargs),
         handler: () => new ListPlugin(bodyArgv).handler(),
       })
       .command({
-        command: 'run [script] [DEBUG]',
-        describe: '执行script命令',
+        command: ['run [script] [DEBUG]','r'],
+        describe: 'npm/yarn/pnpm run [script]',
         builder: (yargs) => new RunPlugin(bodyArgv).getOptions(yargs),
         handler: () => new RunPlugin(bodyArgv).handler(),
       })
       .command({
-        command: 'x [foo] [DEBUG]',
-        describe: '调用项目内部安装的模块',
+        command: 'x [package] [DEBUG]',
+        describe: 'npx/yarn dlx/pnpm dlx [package]',
         builder: (yargs) => new ExecutePlugin(bodyArgv).getOptions(yargs),
         handler: () => new ExecutePlugin(bodyArgv).handler(),
       })

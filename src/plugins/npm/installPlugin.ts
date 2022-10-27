@@ -15,7 +15,7 @@ export default class InstallPlugin extends BasePlugin {
     super.customGetCommand = this.childGetCommand;
   }
   getOptions(yargs:Argv):Argv {
-    return yargs.positional('foo', {
+    return yargs.positional('package', {
       describe: '依赖包名称',
     }).positional('DEBUG', {
       choices: ['?'],
@@ -31,6 +31,9 @@ export default class InstallPlugin extends BasePlugin {
       },
       'frozen': {
         describe:'根据lock.json进行安装并检查'
+      },
+      'D':{
+        describe:'将依赖包保存至devDependencies'
       }
     }).alias('h','help');
   }

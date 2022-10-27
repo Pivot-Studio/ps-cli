@@ -21,7 +21,7 @@ export default class UninstallPlugin extends BasePlugin {
   }
   getOptions(yargs: Argv): Argv {
     return yargs
-      .positional('foo', {
+      .positional('package', {
         describe: '依赖包名称',
       })
       .positional('DEBUG', { choices: ['?'] })
