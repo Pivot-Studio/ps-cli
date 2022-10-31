@@ -6,13 +6,13 @@ export function singleton<T extends Constructor>(Baseclass:T) {
     constructor(...args: any) {
       super(...args);
     }
-    private static instance:Newclass
+    private static instance:Newclass;
     static getInstance(options:string[]) {
       if (!this.instance) this.instance = new Newclass(options);
       else {
         this.instance.excludeDebugOption = options;
       }
-      return this.instance
+      return this.instance;
     }
-  }
+  };
 }
