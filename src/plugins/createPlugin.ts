@@ -37,9 +37,8 @@ export default class CreatePlugin {
       LOCAL_TEMPLATE,
       this.templateMap[template].path
     );
-    fse.copySync(targetPath, './');
-    // todo 单例模式~~
-    new InstallPlugin([]).handler();
+    fse.copySync(targetPath, './');    
+    InstallPlugin.getInstance([]).handler();
   }
   async _updateTemplate() {
     if (!fse.existsSync(LOCAL_TEMPLATE)) {
