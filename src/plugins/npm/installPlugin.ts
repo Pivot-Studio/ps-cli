@@ -1,5 +1,8 @@
 import BasePlugin from './basePlugin';
+import { Argv } from 'yargs';
 import { spliceArr, getCommand } from '../../utils';
+import { singleton } from '@/utils/singleton';
+@singleton
 export default class InstallPlugin extends BasePlugin {
   // 子命令Plugin通过以下形式在BasePlugin中进行挂载
   /**
@@ -13,9 +16,38 @@ export default class InstallPlugin extends BasePlugin {
     super('install', options);
     super.customGetCommand = this.childGetCommand;
   }
+  getOptions(yargs: Argv): Argv {
+    return yargs
+      .positional('package', {
+        describe: '依赖包名称',
+      })
+      .positional('DEBUG', {
+        choices: ['?'],
+        describe: '打印最终转化的命令',
+      })
+      .options({
+        f: {
+          alias: 'force',
+          describe: '强制安装依赖包',
+        },
+        g: {
+          alias: 'global',
+          describe: '全局安装依赖包',
+        },
+        frozen: {
+          describe: '根据lock.json进行安装并检查',
+        },
+        D: {
+          describe: '将依赖包保存至devDependencies',
+        },
+      })
+      .alias('h', 'help');
+  }
   async childGetCommand(tag: string, excludeDebugOption: string[]) {
     let isFrozen = excludeDebugOption.includes('--frozen');
-    let isGlobal = excludeDebugOption.includes('-g');
+    let isGlobal =
+      excludeDebugOption.includes('-g') ||
+      excludeDebugOption.includes('--global');
     if (isFrozen) {
       return await getCommand(
         'frozen',
@@ -30,7 +62,7 @@ export default class InstallPlugin extends BasePlugin {
       return await getCommand('add', excludeDebugOption);
     } else return await getCommand('install', excludeDebugOption);
   }
-  exec(): void {
+  handler(): void {
     super.start();
   }
 }

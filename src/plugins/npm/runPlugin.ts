@@ -1,10 +1,12 @@
 import { getCommand } from '../../utils/index';
+import { Argv } from 'yargs';
 import detect from '../../utils/detect';
 import fs from 'fs';
 import BasePlugin from './basePlugin';
-
 const startMap = ['serve', 'dev', 'start'];
+import { singleton } from '@/utils/singleton';
 
+@singleton
 export default class RunPlugin extends BasePlugin {
   constructor(options: string[]) {
     super('run', options);
@@ -27,7 +29,21 @@ export default class RunPlugin extends BasePlugin {
     }
     return await getCommand('run', excludeDebugOption);
   }
-  exec(): void {
+  getOptions(yargs: Argv): Argv {
+    return yargs
+      .positional('script', {
+        describe: '指令内容',
+      })
+      .positional('DEBUG', {
+        choices: ['?'],
+        describe: '打印出最终转化的命令',
+      })
+      .option('port', {
+        describe: '端口号设置',
+      })
+      .alias('h', 'help');
+  }
+  handler(): void {
     super.start();
   }
 }

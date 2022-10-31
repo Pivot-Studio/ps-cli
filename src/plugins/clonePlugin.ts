@@ -4,16 +4,22 @@ import { cwd } from 'process';
 import { gitClone } from '@/utils/git/git';
 import logger, { runningPrefixChalk } from '@/utils/logger';
 import { Arguments } from 'yargs';
+import { Argv } from 'yargs';
 inquirer.registerPrompt('search-list', require('inquirer-search-list'));
-export default class CreatePlugin {
+import { singleton } from '@/utils/singleton';
+
+@singleton
+export default class ClonePlugin {
   promptOption: any;
   constructor() {
     this._templateOptions();
   }
-  getOptions() {
-    return {};
+  getOptions(yargs:Argv):Argv {
+    return yargs.positional('url', {
+      describe: '项目仓库地址',
+    }).alias('h','help');
   }
-  async handler(argv: Arguments<{ url: string }>) {
+  async handler(argv: Arguments<{ url?: string }>) {
     // 获取用户信息&仓库
     // waiting...
     logger.pending('正在获取用户Github身份...');
