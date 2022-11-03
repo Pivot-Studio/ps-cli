@@ -94,6 +94,7 @@ export default class Parser {
         handler: () => new PushPlugin().handler(),
       })
       .alias('-h', '--help')
-      .help();
+      .alias('-v', '--version')
+      .recommendCommands();
   }
 }

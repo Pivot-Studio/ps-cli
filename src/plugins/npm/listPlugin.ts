@@ -31,7 +31,6 @@ export default class ListPlugin extends BasePlugin {
       .alias('h', 'help');
   }
   handler(): void {
-    console.log(new Date())
     super.start();
   }
 }
