@@ -12,6 +12,7 @@ import { singleton } from '@/utils/singleton';
 // todo 通用Plugin抽离
 @singleton
 export default class CreatePlugin {
+  static getInstance: (...args: any) => any;
   yargsOption: any;
   promptOption: any;
   templateMap: any;
@@ -27,17 +28,13 @@ export default class CreatePlugin {
     await this._updateTemplate();
     return yargs.positional('template', this.yargsOption);
   }
-  /**
-   *
-   * @param argv
-   */
   async handler(argv: ArgumentsCamelCase) {
     const { template } = argv?.template ? argv : await this._templatePrompt();
     const targetPath = path.resolve(
       LOCAL_TEMPLATE,
       this.templateMap[template].path
     );
-    fse.copySync(targetPath, './');    
+    fse.copySync(targetPath, './');
     InstallPlugin.getInstance([]).handler();
   }
   async _updateTemplate() {
@@ -94,7 +91,6 @@ export default class CreatePlugin {
       });
       this.yargsOption.choices.push(`${option.value}`);
     });
-    // console.log(this.yargsOption);
   }
   private async _templatePrompt() {
     return await inquirer.prompt(this.promptOption);

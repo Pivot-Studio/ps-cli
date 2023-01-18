@@ -29,7 +29,7 @@ export default class Parser {
     const originArgv =
       hideBin(process.argv).length > 0 ? hideBin(process.argv) : ['-h'];
     const bodyArgv = originArgv.slice(1);
-    const { argv } = yargs(originArgv)
+    const { argv } = yargs(originArgv) 
       .strict()
       .scriptName('zeus')
       .usage('Usage: $0 <command> [args]')
@@ -42,29 +42,32 @@ export default class Parser {
       .command({
         command: ['install [package] [DEBUG]', 'i'],
         describe: 'npm/yarn/pnpm install/add [package]',
-        builder: (yargs) => InstallPlugin.getInstance(bodyArgv).getOptions(yargs),
+        builder: (yargs) =>
+          InstallPlugin.getInstance(bodyArgv).getOptions(yargs),
         handler: () => InstallPlugin.getInstance(bodyArgv).handler(),
       })
       .command({
-        command: ['update [package] [DEBUG]','u'],
+        command: ['update [package] [DEBUG]', 'u'],
         describe: 'npm/yarn/pnpm update/upgrade [package]',
-        builder: (yargs) => UpdatePlugin.getInstance(bodyArgv).getOptions(yargs),
+        builder: (yargs) =>
+          UpdatePlugin.getInstance(bodyArgv).getOptions(yargs),
         handler: () => UpdatePlugin.getInstance(bodyArgv).handler(),
       })
       .command({
-        command: ['uninstall [package] [DEBUG]','ui'],
+        command: ['uninstall [package] [DEBUG]', 'ui'],
         describe: 'npm/yarn/pnpm uninstall [package]',
-        builder: (yargs) => UninstallPlugin.getInstance(bodyArgv).getOptions(yargs),
+        builder: (yargs) =>
+          UninstallPlugin.getInstance(bodyArgv).getOptions(yargs),
         handler: () => UninstallPlugin.getInstance(bodyArgv).handler(),
       })
       .command({
-        command: ['ls [package] [DEBUG]','list'],
+        command: ['ls [package] [DEBUG]', 'list'],
         describe: 'npm/yarn/pnpm list [package]',
         builder: (yargs) => ListPlugin.getInstance(bodyArgv).getOptions(yargs),
         handler: () => ListPlugin.getInstance(bodyArgv).handler(),
       })
       .command({
-        command: ['run [script] [DEBUG]','r'],
+        command: ['run [script] [DEBUG]', 'r'],
         describe: 'npm/yarn/pnpm run [script]',
         builder: (yargs) => RunPlugin.getInstance(bodyArgv).getOptions(yargs),
         handler: () => RunPlugin.getInstance(bodyArgv).handler(),
@@ -72,14 +75,15 @@ export default class Parser {
       .command({
         command: 'x [package] [DEBUG]',
         describe: 'npx/yarn dlx/pnpm dlx [package]',
-        builder: (yargs) => ExecutePlugin.getInstance(bodyArgv).getOptions(yargs),
+        builder: (yargs) =>
+          ExecutePlugin.getInstance(bodyArgv).getOptions(yargs),
         handler: () => ExecutePlugin.getInstance(bodyArgv).handler(),
       })
       .command({
         command: 'create [template]',
         describe: '初始化项目模板',
-        builder: (yargs) => new CreatePlugin().getOptions(yargs),
-        handler: (argv) => new CreatePlugin().handler(argv),
+        builder: (yargs) => CreatePlugin.getInstance().getOptions(yargs),
+        handler: (argv) => CreatePlugin.getInstance().handler(argv),
       })
       .command({
         command: 'clone [url]',
