@@ -6,6 +6,10 @@ A highly customized CLI tool supporting for npm、pnpm and yarn. No more agonizi
 
 Users can only remenber one command usage，and use Node more conveniently
 
+## Get Started
+
+`npm i @psfe/zeus -g`
+
 ## features
 
 - 内聚了npm、pnpm、yarn三种包管理器的命令 
