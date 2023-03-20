@@ -3,9 +3,9 @@ import path from 'path';
 import InquirerBuilder from './inquirer';
 import { LOCKS, AGENTS } from '@/constant';
 
+let dest = '';
 async function detect() {
   let cwd = process.cwd();
-  let dest = '';
   let locksPath = '';
   let m: any;
   for (let lock of Object.keys(LOCKS)) {
