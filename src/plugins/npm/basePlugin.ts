@@ -24,8 +24,6 @@ export default class BasePlugin {
    * @param options 参数body： zeus i typescript ? ==> [typescript, ?]
    */
   constructor(tag: string, options: string[] = []) {
-    console.log(tag,options);
-    
     this.debug = options.includes(DEBUG);
     this.tag = tag;
     this._validOptions(options);
