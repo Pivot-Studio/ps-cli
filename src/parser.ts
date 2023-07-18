@@ -26,13 +26,19 @@ export default class Parser {
     this._parse();
   }
   private _parse() {
-    const originArgv =
-      hideBin(process.argv).length > 0 ? hideBin(process.argv) : ['-h'];
-    const bodyArgv = originArgv.slice(1);
-    const { argv } = yargs(originArgv) 
+    const originArgv = hideBin(process.argv);
+    const bodyArgv = originArgv.length ? originArgv.slice(1) : [];
+    const { argv } = yargs(originArgv)
       .strict()
       .scriptName('zeus')
-      .usage('Usage: $0 <command> [args]')
+      .usage('Usage: $0 [command] [args]')
+      .command({
+        command: '$0 [DEBUG]',
+        describe: 'the default command',
+        // 这里参数直接填的originArgv，即[]或者是["?"]
+        builder: (yargs) => RunPlugin.getInstance(originArgv).getOptions(yargs),
+        handler: () => RunPlugin.getInstance(bodyArgv).handler(),
+      })
       .command({
         command: 'init [DEBUG]',
         describe: 'npm/yarn/pnpm init',
